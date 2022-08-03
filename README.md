@@ -51,3 +51,5 @@ Credentialed user will get feedback saying their search is invalid if they type 
 | Front End SME | Casey Jones |
 | Back End SME(s) | Terrance Wells & Yuntian Zheng |
 
+##### STRETCH GOALS
+- auto completing search box that provides suggestions as the user input changes
