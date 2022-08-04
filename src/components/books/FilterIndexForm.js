@@ -7,7 +7,9 @@ import axios from 'axios'
 const FilterIndexForm = (props) => {
 
     const [searchValue, setSearchValue] = useState('')
-    console.log('\ncurrent input value:', searchValue)
+    const [booksToView, setBooksToView] = useState([])
+    console.log('\ncurrent search value:\n', searchValue)
+    console.log('\ncurrent books to view:\n', booksToView)
 
     const handleChange = (e) => {
         setSearchValue(() => {
@@ -17,18 +19,31 @@ const FilterIndexForm = (props) => {
         })
     }
 
+    const handleViewBooksInModal = (data) => {
+        setBooksToView(() => {
+            return (data.map(book => {
+                return({
+                    title: book.volumeInfo.title,
+                    author: book.volumeInfo.authors,
+                    image: book.volumeInfo.imageLinks.thumbnail,
+                    description: book.volumeInfo.description,
+                    publisher: book.volumeInfo.publisher
+                })
+            }))
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
         console.log(`\nsubmitted value:\n${searchValue}`)
 
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}&langRestrict:en&orderBy:relevance`)
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}&langRestrict:en&printType=books`)
             .then((res) => {
                 const data = res.data.items
-                console.log(data)
-                // let book = {
-
-                // }
+                // console.log(data)
+                
+                handleViewBooksInModal(data)
                 
             })
             .catch(err => console.log(err))
