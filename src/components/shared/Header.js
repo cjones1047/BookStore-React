@@ -1,3 +1,5 @@
+import './Header.css'
+
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
@@ -8,50 +10,45 @@ const linkStyle = {
 }
 const authenticatedOptions = (
 	<>
-		<Nav.Item>
-			<Link to='change-password' style={linkStyle}>
-				Change Password
-			</Link>
-		</Nav.Item>
-		<Nav.Item>
-			<Link to='sign-out' style={linkStyle}>
-				Sign Out
-			</Link>
-		</Nav.Item>
+		<Nav.Link className="nav-element" href="change-password">
+			Change Password
+		</Nav.Link>
+		<div className='vr' />
+		<Nav.Link className="nav-element" href="sign-out">
+			Sign Out
+		</Nav.Link>
 	</>
 )
 
 const unauthenticatedOptions = (
 	<>
-        <Nav.Item>
-		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
-        </Nav.Item>
-        <Nav.Item>
-		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
-        </Nav.Item>
+        <Nav.Link className="nav-element" href="sign-up">
+		    Sign Up
+        </Nav.Link>
+		<div className='vr' />
+        <Nav.Link className="nav-element" href="sign-in">
+		    Sign In
+        </Nav.Link>
 	</>
 )
 
 const alwaysOptions = (
 	<>
-		<Nav.Link>
-			<Link to='/' style={linkStyle}>
-				Home
-			</Link>
+		<Nav.Link className="nav-element" href="/">
+			Home
 		</Nav.Link>
+		<div className='vr' />
 	</>
 )
 
 const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
-		<Navbar.Brand>
-            <Link to='/' style={linkStyle}>
-                Bookstore
-            </Link>
+	<Navbar bg='light' variant='light' expand='md' style={{margin: '40px', marginLeft: '80px', marginRight: '80px', borderRadius: '15px', boxShadow: '0.25px 0.25px 5px black, -0.25px -0.25px 5px black'}}>
+		<Navbar.Brand className='m-10' style={{width: '0', paddingLeft: '15px'}}>
+			BookTag
         </Navbar.Brand>
-		<Navbar.Toggle aria-controls='basic-navbar-nav' />
-		<Navbar.Collapse id='basic-navbar-nav'>
-			<Nav className='ml-auto'>
+		<Navbar.Toggle aria-controls='basic-navbar-nav' style={{marginRight: '15px'}}/>
+		<Navbar.Collapse id='basic-navbar-nav' style={{justifyContent: 'center', width: '100%', paddingRight: '15px'}}>
+			<Nav>
 				{user && (
 					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
 				)}
