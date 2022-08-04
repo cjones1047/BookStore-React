@@ -5,7 +5,7 @@ const FilterIndexForm = (props) => {
 	console.log('props in home', props)
 
 	return (
-		<Form className="d-flex">
+		<Form className="d-flex" style={{width: '400px', justifyContent: 'center'}}>
             <Form.Control
                 type="search"
                 placeholder="Search"
