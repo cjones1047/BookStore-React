@@ -8,6 +8,7 @@ const FilterIndexForm = (props) => {
 
     const [searchValue, setSearchValue] = useState('')
     const [booksToView, setBooksToView] = useState([])
+    const [createBookModalShow, setCreateBookModalShow] = useState(false)
     console.log('\ncurrent search value:\n', searchValue)
     console.log('\ncurrent books to view:\n', booksToView)
 
@@ -27,7 +28,8 @@ const FilterIndexForm = (props) => {
                     author: book.volumeInfo.authors,
                     image: book.volumeInfo.imageLinks.thumbnail,
                     description: book.volumeInfo.description,
-                    publisher: book.volumeInfo.publisher
+                    publisher: book.volumeInfo.publisher,
+                    isbn: book.volumeInfo.industryIdentifiers[0].identifier
                 })
             }))
         })
@@ -50,25 +52,27 @@ const FilterIndexForm = (props) => {
     }
 
 	return (
-		<Form
-            onSubmit={handleSubmit}
-            className="d-flex" 
-            style={{maxWidth: '550px', width: '100%', padding: '10px'}}
-            >
-            <Form.Control
-                id='search-book-field'
-                autoComplete='off'
-                type="search"
-                placeholder="Any book title here..."
-                className="me-2"
-                aria-label="Search the web"
-                value={searchValue}
-                onChange={handleChange}
-            />
-            <Button type='submit' style={{whiteSpace: 'nowrap'}} variant="outline-secondary">
-                Search the web
-            </Button>
-        </Form>
+		
+            <Form
+                onSubmit={handleSubmit}
+                className="d-flex" 
+                style={{maxWidth: '550px', width: '100%', padding: '10px'}}
+                >
+                <Form.Control
+                    id='search-book-field'
+                    autoComplete='off'
+                    type="search"
+                    placeholder="Any book title here..."
+                    className="me-2"
+                    aria-label="Search the web"
+                    value={searchValue}
+                    onChange={handleChange}
+                />
+                <Button type='submit' style={{whiteSpace: 'nowrap'}} variant="outline-secondary">
+                    Search the web
+                </Button>
+            </Form>
+
 	)
 }
 
