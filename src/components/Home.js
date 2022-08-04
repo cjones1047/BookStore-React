@@ -9,7 +9,7 @@ const Home = (props) => {
 	return (
 		<div className='home-page-header'>
 			<FilterIndexForm />
-			<h1 style={{fontFamily: 'Times', color: 'whitesmoke', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
+			<h1 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
 		</div>
 	)
 }
