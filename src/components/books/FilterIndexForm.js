@@ -13,8 +13,8 @@ const FilterIndexForm = (props) => {
     const [searchValue, setSearchValue] = useState('')
     const [booksToView, setBooksToView] = useState([])
     const [createBookModalShow, setCreateBookModalShow] = useState(false)
-    console.log('\ncurrent search value:\n', searchValue)
-    console.log('\ncurrent books to view:\n', booksToView)
+    // console.log('\ncurrent search value:\n', searchValue)
+    // console.log('\ncurrent books to view:\n', booksToView)
 
     const handleChange = (e) => {
         setSearchValue(() => {
@@ -28,17 +28,17 @@ const FilterIndexForm = (props) => {
         setCreateBookModalShow(true)
         setBooksToView(() => {
             return (data.map(book => {
-                if(!book.volumeInfo.imageLinks.thumbnail) return({})
+                // if(book.volumeInfo.imageLinks.thumbnail === undefined) return({})
                 return({
                     title: book.volumeInfo.title,
-                    authors: book.volumeInfo.authors.map((author,i) => {
+                    authors: book.volumeInfo.authors ? book.volumeInfo.authors.map((author,i) => {
                         if(i === 0) return author
                         else return ', '+author
-                    }),
-                    image: book.volumeInfo.imageLinks.thumbnail,
+                    }) : null,
+                    image: book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : null,
                     description: book.volumeInfo.description,
                     publisher: book.volumeInfo.publisher,
-                    isbn: book.volumeInfo.industryIdentifiers[0].identifier
+                    isbn: book.volumeInfo.industryIdentifiers ? book.volumeInfo.industryIdentifiers[0].identifier : null
                 })
             }))
         })

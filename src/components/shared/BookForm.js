@@ -14,17 +14,59 @@ const BookForm = (props) => {
         heading 
     } = props
     
-    const searchedBooks = booksToView.map((book, i) => 
-        <Card bg={'secondary'} text={'light'} style={{width: 'fit-content', margin: '15px', justifyContent: 'center'}} key={i}>
-            <Card.Img variant="top" src={book.image} style={{height: '225px', width: '180px'}}/>
-            <Card.Body>
-                {/* <Card.Text>
-                    by {book.authors}
-                </Card.Text> */}
-                <Button variant="light">Tag</Button>
-            </Card.Body>
-        </Card>
-    )
+    const searchedBooks = () => {
+        // for(const book of booksToView) {
+        //     for (const property in book) {
+        //         if(property === null || property === undefined) continue
+        //         else return ()
+        //     }
+        // }
+
+        return booksToView.map((book, i) => {
+            let filteredBook = {}
+            let undefinedProperty = false
+            for (const property in book) {
+                // console.log(property,'in index ',i,': ',book[property])
+                if(book[property] === null || book[property] === undefined) {
+                    console.log('undefined or null property:', property)
+                    undefinedProperty = true
+                    break
+                } 
+                else filteredBook = {...filteredBook,
+                    ...(
+                        <Card bg={'secondary'} text={'light'} style={{ width: 'fit-content', margin: '15px', justifyContent: 'center' }} key={i}>
+                            <Card.Img variant="top" src={book.image} style={{ height: '225px', width: '180px' }} />
+                            <Card.Body>
+                                {/* <Card.Text>
+                                by {book.authors}
+                                </Card.Text> */}
+                                <div style={{ textAlign: 'center' }}>
+                                    <Button style={{ marginRight: '15px' }} variant="light">Tag</Button>
+                                    <Button variant="light">View</Button>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    )
+                } 
+            }
+            return undefinedProperty ? null : filteredBook
+            
+            // return (
+            //     <Card bg={'secondary'} text={'light'} style={{width: 'fit-content', margin: '15px', justifyContent: 'center'}} key={i}>
+            //         <Card.Img variant="top" src={book.image} style={{height: '225px', width: '180px'}}/>
+            //         <Card.Body>
+            //             {/* <Card.Text>
+            //                 by {book.authors}
+            //             </Card.Text> */}
+            //             <div style={{textAlign: 'center'}}>
+            //                 <Button style={{marginRight: '15px'}} variant="light">Tag</Button>
+            //                 <Button variant="light">View</Button>
+            //             </div>
+            //         </Card.Body>
+            //     </Card>
+            // )
+        })
+    }
     // return (
     //     <div style={cardContainerStyle}>
     //         {supeCards}
@@ -86,7 +128,7 @@ const BookForm = (props) => {
                 </Form>
             </Container> */}
             <div style={cardContainerStyle} >
-                {searchedBooks}
+                {searchedBooks()}
             </div>
         </>
     );

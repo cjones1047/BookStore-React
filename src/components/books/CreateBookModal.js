@@ -76,8 +76,11 @@ const CreateBookModal = (props) => {
         <Modal
             size="lg" 
             show={show} 
-            onHide={handleClose}>
-            <Modal.Header closeButton style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
+            onHide={handleClose}
+            // style={{opacity: '0.7'}}
+            >
+            <Modal.Header closeButton 
+            style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
             <Modal.Body style={{backgroundColor: 'whitesmoke'}}>
                 <BookForm
                     booksToView={booksToView}
