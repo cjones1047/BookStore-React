@@ -4,7 +4,11 @@ import { Form, Button } from 'react-bootstrap'
 import { useState } from 'react'
 import axios from 'axios'
 
+import CreateBookModal from './CreateBookModal'
+
 const FilterIndexForm = (props) => {
+
+    const { user } = props
 
     const [searchValue, setSearchValue] = useState('')
     const [booksToView, setBooksToView] = useState([])
@@ -21,11 +25,16 @@ const FilterIndexForm = (props) => {
     }
 
     const handleViewBooksInModal = (data) => {
+        setCreateBookModalShow(true)
         setBooksToView(() => {
             return (data.map(book => {
+                if(!book.volumeInfo.imageLinks.thumbnail) return({})
                 return({
                     title: book.volumeInfo.title,
-                    author: book.volumeInfo.authors,
+                    authors: book.volumeInfo.authors.map((author,i) => {
+                        if(i === 0) return author
+                        else return ', '+author
+                    }),
                     image: book.volumeInfo.imageLinks.thumbnail,
                     description: book.volumeInfo.description,
                     publisher: book.volumeInfo.publisher,
@@ -52,7 +61,7 @@ const FilterIndexForm = (props) => {
     }
 
 	return (
-		
+		<>
             <Form
                 onSubmit={handleSubmit}
                 className="d-flex" 
@@ -72,6 +81,17 @@ const FilterIndexForm = (props) => {
                     Search the web
                 </Button>
             </Form>
+
+            <CreateBookModal 
+                user={user}
+                booksToView={booksToView}
+                show={createBookModalShow}
+                // updateSupe={updateSupe}
+                // msgAlert={msgAlert}
+                // triggerRefresh={() => setUpdated(prev => !prev)}
+                handleClose={() => setCreateBookModalShow(false)}
+            />
+        </>
 
 	)
 }
