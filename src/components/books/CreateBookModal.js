@@ -15,6 +15,7 @@ const CreateBookModal = (props) => {
         // triggerRefresh
     } = props
 
+    const [viewBookModalShow, setViewBookModalShow] = useState(false)
     // const [booksInModal, setBooksInModal] = useState(props.booksToView)
 
     // const handleChange = (e) => {
@@ -73,23 +74,41 @@ const CreateBookModal = (props) => {
     }
 
     return (
-        <Modal
-            size="lg" 
-            show={show} 
-            onHide={handleClose}
-            // style={{opacity: '0.7'}}
-            >
-            <Modal.Header closeButton 
-            style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
-            <Modal.Body style={{backgroundColor: 'whitesmoke'}}>
-                <BookForm
-                    booksToView={booksToView}
-                    // handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                    heading="Any of these what you're looking for?"
-                />
-            </Modal.Body>
-        </Modal>
+        <>
+            <Modal
+                size="lg" 
+                show={show} 
+                onHide={handleClose}
+                // style={{opacity: '0.7'}}
+                >
+                <Modal.Header closeButton 
+                style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
+                <Modal.Body style={{backgroundColor: 'whitesmoke'}}>
+                    <BookForm
+                        booksToView={booksToView}
+                        // handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        heading="Any of these what you're looking for?"
+                        toggleViewBookModal={() => setViewBookModalShow(true)}
+                    />
+                </Modal.Body>
+            </Modal>
+
+            <Modal
+                fullscreen={true} 
+                show={viewBookModalShow} 
+                onHide={() => setViewBookModalShow(false)}
+                style={{opacity: '0.7'}}
+                >
+                <Modal.Header closeButton 
+                style={{backgroundColor: 'black'}}/>
+                <Modal.Body style={{backgroundColor: 'black', opacity:'1'}}>
+                    <div>
+                        This book is being viewed
+                    </div>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 

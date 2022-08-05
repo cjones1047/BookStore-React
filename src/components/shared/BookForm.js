@@ -11,7 +11,8 @@ const BookForm = (props) => {
     const { 
         booksToView, 
         handleSubmit, 
-        heading 
+        heading,
+        toggleViewBookModal
     } = props
     
     const searchedBooks = () => {
@@ -42,7 +43,7 @@ const BookForm = (props) => {
                                 </Card.Text> */}
                                 <div style={{ textAlign: 'center' }}>
                                     <Button style={{ marginRight: '15px' }} variant="light">Tag</Button>
-                                    <Button variant="light">View</Button>
+                                    <Button onClick={toggleViewBookModal} variant="light">View</Button>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -127,6 +128,7 @@ const BookForm = (props) => {
                     </Button>
                 </Form>
             </Container> */}
+            {heading}
             <div style={cardContainerStyle} >
                 {searchedBooks()}
             </div>
