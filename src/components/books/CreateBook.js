@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Card } from "react-bootstrap";
 // import SupeForm from "../shared/SupeForm";
 import { createBookSuccess, createBookFailure } from "../shared/AutoDismissAlert/messages";
-import BookForm from "../shared/BookForm";
+import BookListModal from "./BookListModal";
 
-const CreateBookModal = (props) => {
+const CreateBook = (props) => {
     const {
         user, 
         show,
@@ -15,7 +15,8 @@ const CreateBookModal = (props) => {
         // triggerRefresh
     } = props
 
-    const [viewBookModalShow, setViewBookModalShow] = useState(false)
+    const [showBookListModal, setShowBookListModal] = useState(false)
+    const [showBookViewModal, setShowBookViewModal] = useState(false)
     // const [booksInModal, setBooksInModal] = useState(props.booksToView)
 
     // const handleChange = (e) => {
@@ -45,6 +46,11 @@ const CreateBookModal = (props) => {
     //         }
     //     })
     // }
+
+    const bookInViewModal = (key) => {
+        setShowBookViewModal(true)
+        console.log(key)
+    }
 
     const handleSubmit = (e) => {
         // e equals event
@@ -79,37 +85,44 @@ const CreateBookModal = (props) => {
                 size="lg" 
                 show={show} 
                 onHide={handleClose}
-                // style={{opacity: '0.7'}}
                 >
                 <Modal.Header closeButton 
                 style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
                 <Modal.Body style={{backgroundColor: 'whitesmoke'}}>
-                    <BookForm
+                    <BookListModal
                         booksToView={booksToView}
                         // handleChange={handleChange}
                         handleSubmit={handleSubmit}
                         heading="Any of these what you're looking for?"
-                        toggleViewBookModal={() => setViewBookModalShow(true)}
+                        setShowBookViewModal={(key) => bookInViewModal(key)}
                     />
                 </Modal.Body>
             </Modal>
 
             <Modal
                 fullscreen={true} 
-                show={viewBookModalShow} 
-                onHide={() => setViewBookModalShow(false)}
-                style={{opacity: '0.7'}}
+                show={showBookViewModal} 
+                onHide={() => setShowBookViewModal(false)}
                 >
-                <Modal.Header closeButton 
-                style={{backgroundColor: 'black'}}/>
-                <Modal.Body style={{backgroundColor: 'black', opacity:'1'}}>
-                    <div>
-                        This book is being viewed
-                    </div>
+                <Modal.Header 
+                    closeButton
+                    closeVariant="white"
+                    style={{backgroundColor: 'black', color: 'white'}}
+                    />
+                <Modal.Body 
+                    style={{backgroundColor: 'black', color: 'white', textAlign: 'center'}}
+                    >
+                        {/* <BookForm
+                        booksToView={booksToView}
+                        // handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        heading="Any of these what you're looking for?"
+                        toggleViewBookModal={() => setViewBookModalShow(true)}
+                        /> */}
                 </Modal.Body>
             </Modal>
         </>
     )
 }
 
-export default CreateBookModal
+export default CreateBook

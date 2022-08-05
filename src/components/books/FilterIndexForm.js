@@ -4,11 +4,11 @@ import { Form, Button } from 'react-bootstrap'
 import { useState } from 'react'
 import axios from 'axios'
 
-import CreateBookModal from './CreateBookModal'
+import CreateBook from './CreateBook'
 
 const FilterIndexForm = (props) => {
 
-    const { user } = props
+    const { user, msgAlert } = props
 
     const [searchValue, setSearchValue] = useState('')
     const [booksToView, setBooksToView] = useState([])
@@ -76,18 +76,19 @@ const FilterIndexForm = (props) => {
                     aria-label="Search the web"
                     value={searchValue}
                     onChange={handleChange}
+                    required
                 />
                 <Button type='submit' style={{whiteSpace: 'nowrap'}} variant="outline-secondary">
                     Search the web
                 </Button>
             </Form>
 
-            <CreateBookModal 
+            <CreateBook 
                 user={user}
                 booksToView={booksToView}
                 show={createBookModalShow}
                 // updateSupe={updateSupe}
-                // msgAlert={msgAlert}
+                msgAlert={msgAlert}
                 // triggerRefresh={() => setUpdated(prev => !prev)}
                 handleClose={() => setCreateBookModalShow(false)}
             />

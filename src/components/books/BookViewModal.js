@@ -7,12 +7,12 @@ const cardContainerStyle = {
     justifyContent: 'center'
 }
 
-const BookForm = (props) => {
+const BookViewModal = (props) => {
     const { 
         booksToView, 
         handleSubmit, 
         heading,
-        toggleViewBookModal
+        setShowBookViewModal
     } = props
     
     const searchedBooks = () => {
@@ -43,7 +43,7 @@ const BookForm = (props) => {
                                 </Card.Text> */}
                                 <div style={{ textAlign: 'center' }}>
                                     <Button style={{ marginRight: '15px' }} variant="light">Tag</Button>
-                                    <Button onClick={toggleViewBookModal} variant="light">View</Button>
+                                    <Button onClick={setShowBookViewModal} variant="light">View</Button>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -136,4 +136,4 @@ const BookForm = (props) => {
     );
 }
 
-export default BookForm
+export default BookViewModal
