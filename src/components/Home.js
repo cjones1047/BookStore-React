@@ -1,3 +1,5 @@
+import './Home.css'
+
 import FilterIndexForm from "./books/FilterIndexForm"
 
 const Home = (props) => {
@@ -5,10 +7,10 @@ const Home = (props) => {
 	console.log('props in home', props)
 
 	return (
-		<>
-			<h2>Home Page</h2>
+		<div className='home-page-header'>
 			<FilterIndexForm />
-		</>
+			<h1 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
+		</div>
 	)
 }
 

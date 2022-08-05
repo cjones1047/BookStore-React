@@ -3,14 +3,17 @@
     margin-left: 15px;
 }
 
-/* .whole-navbar {
-    margin-right: 100px;
-    margin-left: 100px;
-} */
+.whole-navbar {
+    margin: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
 
-/* @media only screen and (min-width: 480px) {
+}
+
+@media only screen and (min-width: 550px) {
     .whole-navbar {
-        margin-right: 8px;
-        margin-left: 8px;
+        margin: 40px;
+        margin-right: 80px;
+        margin-left: 80px;
     }
- } */
+ }

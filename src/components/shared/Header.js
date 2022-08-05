@@ -3,11 +3,7 @@ import './Header.css'
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import { Link } from 'react-router-dom'
-const linkStyle = {
-    color: 'white',
-    textDecoration: 'none'
-}
+
 const authenticatedOptions = (
 	<>
 		<Nav.Link className="nav-element" href="change-password">
@@ -42,7 +38,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-	<Navbar className='whole-navbar' bg='light' variant='light' expand='md' style={{margin: '40px', marginLeft: '80px', marginRight: '80px', borderRadius: '15px', boxShadow: '0.25px 0.25px 5px black, -0.25px -0.25px 5px black'}}>
+	<Navbar className='whole-navbar' bg='light' variant='light' expand='md' style={{borderRadius: '15px', boxShadow: '0.25px 0.25px 5px black, -0.25px -0.25px 5px black'}}>
 		<Navbar.Brand className='m-10' style={{width: '0', paddingLeft: '15px'}}>
 			BookTag
         </Navbar.Brand>
