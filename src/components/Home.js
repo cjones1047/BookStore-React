@@ -12,7 +12,6 @@ const Home = (props) => {
 				user={user}
 				msgAlert={msgAlert}
 			/>
-			<h1 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
 		</div>
 	)
 }

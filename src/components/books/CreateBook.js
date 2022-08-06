@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Card } from "react-bootstrap";
-// import SupeForm from "../shared/SupeForm";
+import { Modal } from "react-bootstrap";
 import { createBookSuccess, createBookFailure } from "../shared/AutoDismissAlert/messages";
+
 import BookListModal from "./BookListModal";
 import BookViewModal from "./BookViewModal";
 
@@ -11,7 +11,7 @@ const CreateBook = (props) => {
         show,
         booksToView, 
         handleClose, 
-        // updateSupe, 
+        // updateBook, 
         msgAlert, 
         // triggerRefresh
     } = props
@@ -23,34 +23,6 @@ const CreateBook = (props) => {
     const [bookInViewModal, setBookInViewModal] = useState({})
 
     // console.log('book being viewed:',bookInViewModal)
-
-    // const handleChange = (e) => {
-    //     setSupe(prevSupe => {
-    //         let updatedValue = e.target.value
-    //         const updatedName = e.target.name
-
-    //         console.log('supe in edit modal', supe)
-    //         console.log('this is the input type', e.target.type)
-
-    //         if (e.target.type === 'number') {
-    //             // this is looking at the input type, and changing it from the default, which is the string, into an actual number
-    //             updatedValue = parseInt(e.target.value)
-    //         }
-
-    //         // this handles the checkbox, changing on to true, etc.
-    //         if (updatedName === "hero" && e.target.checked) {
-    //             updatedValue = true
-    //         } else if (updatedName === "hero" && !e.target.checked) {
-    //             updatedValue = false
-    //         }
-
-    //         const updatedSupe = { [updatedName]: updatedValue}
-    //         return {
-    //             ...prevSupe,
-    //             ...updatedSupe
-    //         }
-    //     })
-    // }
 
     const bookToShow = (e) => {
         setShowBookViewModal(true)
@@ -70,19 +42,23 @@ const CreateBook = (props) => {
         // e equals event
         e.preventDefault()
 
-        // updateSupe(user, supe)
-        //     // if we're successful in the modal, we want the  modal to close
-        //     .then(() => handleClose())
-        //     // send a success message to the user
-        //     .then(() => {
-        //         msgAlert({
-        //             heading: 'Alright!',
-        //             message: createBookSuccess,
-        //             variant: 'success'
-        //         })
+        console.log(user)
+        console.log(e.target.name)
+
+        // createBook(user, bookInViewModal)
+        //     // if we're successful, navigate to the show page for the new book
+        //     .then(res => {
+        //         console.log(res)
+        //         // navigate(`/books/${res.data.book._id}`)
         //     })
-        //     // if everything is successful, we need to run triggerRefresh received as a prop from 'ShowSupe' component
-        //     .then(() => triggerRefresh())
+        //     // send a success message to the user
+        //     // .then(() => {
+        //     //     msgAlert({
+        //     //         heading: 'Oh Yeah!',
+        //     //         message: createBookSuccess,
+        //     //         variant: 'success'
+        //     //     })
+        //     // })
         //     // if there is an error, tell the user about it
         //     .catch(() => {
         //         msgAlert({

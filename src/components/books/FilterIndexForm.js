@@ -1,20 +1,57 @@
 import './FilterIndexForm.css'
 
 import { Form, Button } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import messages from '../shared/AutoDismissAlert/messages'
 import axios from 'axios'
 
+import { getAllBooks } from '../../api/books'
 import CreateBook from './CreateBook'
 
 const FilterIndexForm = (props) => {
 
     const { user, msgAlert } = props
 
+    const [books, setBooks] = useState(null)
     const [searchValue, setSearchValue] = useState('')
     const [booksToView, setBooksToView] = useState([])
     const [createBookModalShow, setCreateBookModalShow] = useState(false)
     // console.log('\ncurrent search value:\n', searchValue)
     // console.log('\ncurrent books to view:\n', booksToView)
+
+    useEffect(() => {
+        // console.log('use effect works')
+        console.log('props:\n',props)
+        getAllBooks()
+            .then(res => setBooks(res.data.books))
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error getting books',
+                    message: messages.getBooksFailure,
+                    variant: 'danger'
+                })
+            })
+    }, [])
+
+    // show a prompt to Tag books if no books exist, or an error message if database cannot be connected to
+    if(!books) {
+        return (
+            <h1 
+                style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
+                    Error connecting to database...
+            </h1>
+            
+        )
+    } 
+    // else if (books.length === 0) {
+    //     return (
+    //         <h1 
+    //             style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
+    //                 No one has tagged that yet, <br></br>
+    //                 Search it and be the first!
+    //         </h1>
+    //     )
+    // }
 
     const handleChange = (e) => {
         setSearchValue(() => {
@@ -82,6 +119,21 @@ const FilterIndexForm = (props) => {
                     Search the web
                 </Button>
             </Form>
+
+            {books.length === 0 ? 
+                <>
+                    <h1 
+                        style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
+                            No one has tagged that yet,
+                    </h1>
+                    <h1 
+                        style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
+                            Search it and be the first!
+                    </h1>
+                </>
+            :
+                <h1 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
+            }
 
             <CreateBook 
                 user={user}

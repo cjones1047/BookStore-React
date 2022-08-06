@@ -5,7 +5,7 @@ const BookViewModal = (props) => {
         bookInViewModal
     } = props
     
-    console.log(window.innerWidth)
+    // console.log(window.innerWidth)
 
     if(window.innerWidth > 500)
     return (
