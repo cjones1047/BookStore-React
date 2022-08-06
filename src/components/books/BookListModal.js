@@ -13,7 +13,6 @@ const BookListModal = (props) => {
         booksToView, 
         handleSubmit, 
         heading,
-        setShowBookListModal,
         setShowBookViewModal
     } = props
     
@@ -38,14 +37,14 @@ const BookListModal = (props) => {
                 else filteredBook = {...filteredBook,
                     ...(
                         <Card bg={'secondary'} text={'light'} style={{ width: 'fit-content', margin: '15px', justifyContent: 'center' }} key={i}>
-                            <Card.Img variant="top" src={book.image} style={{ height: '225px', width: '180px' }} />
+                            <Card.Img variant="top" src={book.image} style={{ height: '225px', width: '155px' }} />
                             <Card.Body>
                                 {/* <Card.Text>
                                 by {book.authors}
                                 </Card.Text> */}
                                 <div style={{ textAlign: 'center' }}>
-                                    <Button style={{ marginRight: '15px' }} variant="light">Tag</Button>
-                                    <Button key={i} onClick={key => setShowBookViewModal(key)} variant="light">View</Button>
+                                    <Button style={{ marginRight: '10px' }} variant="light">Tag</Button>
+                                    <Button id={book.isbn} onClick={e => setShowBookViewModal(e)} variant="light">View</Button>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -130,7 +129,10 @@ const BookListModal = (props) => {
                     </Button>
                 </Form>
             </Container> */}
-            {heading}
+            <div style={{textAlign: 'center'}}>
+                {heading}
+            </div>
+            
             <div style={cardContainerStyle} >
                 {searchedBooks()}
             </div>

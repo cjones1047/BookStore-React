@@ -3,6 +3,7 @@ import { Modal, Card } from "react-bootstrap";
 // import SupeForm from "../shared/SupeForm";
 import { createBookSuccess, createBookFailure } from "../shared/AutoDismissAlert/messages";
 import BookListModal from "./BookListModal";
+import BookViewModal from "./BookViewModal";
 
 const CreateBook = (props) => {
     const {
@@ -15,9 +16,13 @@ const CreateBook = (props) => {
         // triggerRefresh
     } = props
 
-    const [showBookListModal, setShowBookListModal] = useState(false)
-    const [showBookViewModal, setShowBookViewModal] = useState(false)
+    // const [showBookListModal, setShowBookListModal] = useState(false)
     // const [booksInModal, setBooksInModal] = useState(props.booksToView)
+
+    const [showBookViewModal, setShowBookViewModal] = useState(false)
+    const [bookInViewModal, setBookInViewModal] = useState({})
+
+    // console.log('book being viewed:',bookInViewModal)
 
     // const handleChange = (e) => {
     //     setSupe(prevSupe => {
@@ -47,9 +52,18 @@ const CreateBook = (props) => {
     //     })
     // }
 
-    const bookInViewModal = (key) => {
+    const bookToShow = (e) => {
         setShowBookViewModal(true)
-        console.log(key)
+        console.log(e.target.id)
+        const bookIsbn = e.target.id
+        setBookInViewModal(() => {
+            const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
+            console.log('book view modal being updated to:', viewedBook[0])
+            return (
+                viewedBook[0]
+            )
+        })
+        
     }
 
     const handleSubmit = (e) => {
@@ -84,18 +98,23 @@ const CreateBook = (props) => {
             <Modal
                 size="lg" 
                 show={show} 
-                onHide={handleClose}
+                onHide={() => {
+                        handleClose()
+                    }
+                }
                 >
                 <Modal.Header closeButton 
                 style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
-                <Modal.Body style={{backgroundColor: 'whitesmoke'}}>
-                    <BookListModal
-                        booksToView={booksToView}
-                        // handleChange={handleChange}
-                        handleSubmit={handleSubmit}
-                        heading="Any of these what you're looking for?"
-                        setShowBookViewModal={(key) => bookInViewModal(key)}
-                    />
+                <Modal.Body 
+                    style={{backgroundColor: 'whitesmoke'}}
+                    >
+                        <BookListModal
+                            booksToView={booksToView}
+                            // handleChange={handleChange}
+                            handleSubmit={handleSubmit}
+                            heading="Any of these what you're looking for?"
+                            setShowBookViewModal={bookToShow}
+                        />
                 </Modal.Body>
             </Modal>
 
@@ -110,15 +129,11 @@ const CreateBook = (props) => {
                     style={{backgroundColor: 'black', color: 'white'}}
                     />
                 <Modal.Body 
-                    style={{backgroundColor: 'black', color: 'white', textAlign: 'center'}}
+                    style={{backgroundColor: 'black', color: 'white'}}
                     >
-                        {/* <BookForm
-                        booksToView={booksToView}
-                        // handleChange={handleChange}
-                        handleSubmit={handleSubmit}
-                        heading="Any of these what you're looking for?"
-                        toggleViewBookModal={() => setViewBookModalShow(true)}
-                        /> */}
+                        <BookViewModal
+                            bookInViewModal={bookInViewModal}
+                        />
                 </Modal.Body>
             </Modal>
         </>
