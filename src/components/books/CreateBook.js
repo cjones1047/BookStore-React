@@ -5,6 +5,19 @@ import { createBookSuccess, createBookFailure } from "../shared/AutoDismissAlert
 import BookListModal from "./BookListModal";
 import BookViewModal from "./BookViewModal";
 
+export const bookToShow = (e) => {
+    setShowBookViewModal(true)
+    console.log(e.target.id)
+    const bookIsbn = e.target.id
+    setBookInViewModal(() => {
+        const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
+        console.log('book view modal being updated to:', viewedBook[0])
+        return (
+            viewedBook[0]
+        )
+    })
+}
+
 const CreateBook = (props) => {
     const {
         user, 
@@ -24,50 +37,21 @@ const CreateBook = (props) => {
 
     // console.log('book being viewed:',bookInViewModal)
 
-    const bookToShow = (e) => {
-        setShowBookViewModal(true)
-        console.log(e.target.id)
-        const bookIsbn = e.target.id
-        setBookInViewModal(() => {
-            const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
-            console.log('book view modal being updated to:', viewedBook[0])
-            return (
-                viewedBook[0]
-            )
-        })
-        
-    }
+    // 'bookToShow' MOVED UP SO IT COULD BE EXPORTED
+    // const bookToShow = (e) => {
+    //     setShowBookViewModal(true)
+    //     console.log(e.target.id)
+    //     const bookIsbn = e.target.id
+    //     setBookInViewModal(() => {
+    //         const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
+    //         console.log('book view modal being updated to:', viewedBook[0])
+    //         return (
+    //             viewedBook[0]
+    //         )
+    //     })
+    // }
 
-    const handleSubmit = (e) => {
-        // e equals event
-        e.preventDefault()
-
-        console.log(user)
-        console.log(e.target.name)
-
-        // createBook(user, bookInViewModal)
-        //     // if we're successful, navigate to the show page for the new book
-        //     .then(res => {
-        //         console.log(res)
-        //         // navigate(`/books/${res.data.book._id}`)
-        //     })
-        //     // send a success message to the user
-        //     // .then(() => {
-        //     //     msgAlert({
-        //     //         heading: 'Oh Yeah!',
-        //     //         message: createBookSuccess,
-        //     //         variant: 'success'
-        //     //     })
-        //     // })
-        //     // if there is an error, tell the user about it
-        //     .catch(() => {
-        //         msgAlert({
-        //             heading: 'Oh no!',
-        //             message: createBookFailure,
-        //             variant: 'danger'
-        //         })
-        //     })
-    }
+    
 
     return (
         <>
@@ -85,9 +69,9 @@ const CreateBook = (props) => {
                     style={{backgroundColor: 'whitesmoke'}}
                     >
                         <BookListModal
+                            user={user}
+                            msgAlert={msgAlert}
                             booksToView={booksToView}
-                            // handleChange={handleChange}
-                            handleSubmit={handleSubmit}
                             heading="Any of these what you're looking for?"
                             setShowBookViewModal={bookToShow}
                         />

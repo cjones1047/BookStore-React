@@ -7,6 +7,8 @@ import axios from 'axios'
 
 import { getAllBooks } from '../../api/books'
 import CreateBook from './CreateBook'
+import BookListModal from './BookListModal'
+import { bookToShow } from './CreateBook'
 
 const FilterIndexForm = (props) => {
 
@@ -132,18 +134,29 @@ const FilterIndexForm = (props) => {
                     </h1>
                 </>
             :
-                <h1 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
+                <>
+                    <h1 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>All tagged books:</h1>
+
+                    <BookListModal 
+                        user={user}
+                        msgAlert={msgAlert}
+                        booksToView={books}
+                        setShowBookViewModal={bookToShow}
+                    />
+
+                    <CreateBook 
+                        user={user}
+                        booksToView={booksToView}
+                        show={createBookModalShow}
+                        // updateSupe={updateSupe}
+                        msgAlert={msgAlert}
+                        // triggerRefresh={() => setUpdated(prev => !prev)}
+                        handleClose={() => setCreateBookModalShow(false)}
+                    />
+                </>
             }
 
-            <CreateBook 
-                user={user}
-                booksToView={booksToView}
-                show={createBookModalShow}
-                // updateSupe={updateSupe}
-                msgAlert={msgAlert}
-                // triggerRefresh={() => setUpdated(prev => !prev)}
-                handleClose={() => setCreateBookModalShow(false)}
-            />
+            
         </>
 
 	)

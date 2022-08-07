@@ -1,4 +1,5 @@
 import { Button, Card } from 'react-bootstrap';
+import BookForm from '../shared/BookForm';
 
 // style for book cards container
 const cardContainerStyle = {
@@ -10,8 +11,8 @@ const cardContainerStyle = {
 const BookListModal = (props) => {
     const {
         user,
+        msgAlert,
         booksToView, 
-        handleSubmit, 
         heading,
         setShowBookViewModal
     } = props
@@ -39,18 +40,12 @@ const BookListModal = (props) => {
                         <Card bg={'secondary'} text={'light'} style={{ width: 'fit-content', margin: '15px', justifyContent: 'center' }} key={i}>
                             <Card.Img variant="top" src={book.image} style={{ height: '225px', width: '155px' }} />
                             <Card.Body>
-                                {/* <Card.Text>
-                                by {book.authors}
-                                </Card.Text> */}
-                                <div style={{ textAlign: 'center' }}>
-                                    <Button 
-                                        style={{ marginRight: '10px' }}
-                                        name={book}
-                                        onClick={e => handleSubmit(e)}
-                                        variant="light"
-                                        >
-                                            Tag
-                                    </Button>
+                                <div style={{ textAlign: 'center', display: 'flex' }}>
+                                    <BookForm 
+                                        user={user}
+                                        msgAlert={msgAlert}
+                                        book={book}
+                                    />
                                     <Button 
                                         id={book.isbn} 
                                         onClick={e => setShowBookViewModal(e)} variant="light"
@@ -70,9 +65,13 @@ const BookListModal = (props) => {
     
     return (
         <>
-            <div style={{textAlign: 'center'}}>
-                {heading}
-            </div>
+            { heading ?
+                <div style={{textAlign: 'center'}}>
+                    {heading}
+                </div>
+            :
+                null
+            }
             
             <div style={cardContainerStyle} >
                 {searchedBooks()}
