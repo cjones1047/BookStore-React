@@ -45,12 +45,14 @@ const Header = ({ user }) => (
 		<Navbar.Toggle aria-controls='basic-navbar-nav' style={{marginRight: '15px'}}/>
 		<Navbar.Collapse id='basic-navbar-nav' style={{justifyContent: 'center', width: '100%', paddingRight: '15px'}}>
 			<Nav>
-				{user && (
-					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
-				)}
 				{alwaysOptions}
 				{user ? authenticatedOptions : unauthenticatedOptions}
 			</Nav>
+		</Navbar.Collapse>
+		<Navbar.Collapse className='justify-content-end' style={{width: '0', marginRight: '15px'}}>
+			{user && (
+						<span className='navbar-text mr-2'>Welcome, {user.email}</span>
+					)}
 		</Navbar.Collapse>
 	</Navbar>
 )

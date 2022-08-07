@@ -53,6 +53,7 @@ const CreateBook = (props) => {
                         handleClose()
                     }
                 }
+                backdrop={'static'}
                 >
                 <Modal.Header closeButton 
                 style={{backgroundColor: 'rgb(177, 177, 177)'}}/>
@@ -73,6 +74,7 @@ const CreateBook = (props) => {
                 fullscreen={true} 
                 show={showBookViewModal} 
                 onHide={() => setShowBookViewModal(false)}
+                backdrop={true}
                 style={{opacity: '1'}}
                 >
                 <Modal.Header 

@@ -44,7 +44,11 @@ const FilterIndexForm = (props) => {
         // console.log('use effect works')
         console.log('props:\n',props)
         getAllBooks()
-            .then(res => setBooks(res.data.books))
+            .then(res => {
+                setBooks(res.data.books)
+                setBooksToView(res.data.books)
+                return
+            })
             .catch(err => {
                 msgAlert({
                     heading: 'Error getting books',
