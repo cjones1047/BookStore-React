@@ -49,7 +49,7 @@ const Header = ({ user }) => (
 				{user ? authenticatedOptions : unauthenticatedOptions}
 			</Nav>
 		</Navbar.Collapse>
-		<Navbar.Collapse className='justify-content-end' style={{width: '0', marginRight: '15px'}}>
+		<Navbar.Collapse className='justify-content-end' style={{width: '0', margin: '15px', whiteSpace: 'nowrap'}}>
 			{user && (
 						<span className='navbar-text mr-2'>Welcome, {user.email}</span>
 					)}
