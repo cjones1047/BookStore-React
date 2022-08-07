@@ -5,11 +5,10 @@ import { createBookSuccess, createBookFailure } from "../shared/AutoDismissAlert
 import BookListModal from "./BookListModal";
 import BookViewModal from "./BookViewModal";
 
-const CreateBook = (props) => {
+const CrudBook = (props) => {
     const {
         user, 
         show,
-        books,
         booksToView,
         bookToShow,
         showBookViewModal,
@@ -41,8 +40,6 @@ const CreateBook = (props) => {
     //         )
     //     })
     // }
-
-    
 
     return (
         <>
@@ -95,4 +92,4 @@ const CreateBook = (props) => {
     )
 }
 
-export default CreateBook
+export default CrudBook

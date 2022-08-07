@@ -13,13 +13,10 @@ const BookForm = (props) => {
 
     // this form will conditionally render a button based on whether the book exists on the index page (FilterIndexForm.js) or not
 
-        // if book does NOT exist in FilterIndexForm (and therefore does NOT exist in the database) the form will render a 'Tag' button (linked to the hidden form element in side the 'div below)
-        // if book DOES exist in FilterIndexForm (and therefore DOES exist in the database) the form will render an 'Untag' button (linked to a 'delete' route by importing 'books.js')
+        // if book does NOT exist in FilterIndexForm (and therefore does NOT exist in the database) this component will render as a 'Tag' button (linked to the hidden form element in side the 'div below)
+        // if book DOES exist in FilterIndexForm (and therefore DOES exist in the database) this component will render as an 'Untag' button (linked to a 'delete' route by importing 'books.js')
 
     // this allows all creation or deletion for a single book document in our database to be tied into one reuseable, shareable component that only takes up the space of one little button
-
-
-    // below code inside 'div' hides all input fields in form because they will be pre-populated using props, and we don't want the user to be able to change them
 
     const onTagOrUntagClick = (e) => {
         e.preventDefault()

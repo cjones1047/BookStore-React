@@ -8,6 +8,7 @@ const BookViewModal = (props) => {
     
     // console.log(window.innerWidth)
 
+    // render formatting changes based on a 500-pixel breakpoint
     if(window.innerWidth > 500)
     return (
         <Container fluid style={{maxWidth:'700px'}}>

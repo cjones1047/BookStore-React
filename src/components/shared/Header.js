@@ -51,8 +51,8 @@ const Header = ({ user }) => (
 		</Navbar.Collapse>
 		<Navbar.Collapse className='justify-content-end' style={{width: '0', margin: '15px', whiteSpace: 'nowrap'}}>
 			{user && (
-						<span className='navbar-text mr-2'>Welcome, {user.email}</span>
-					)}
+				<span className='navbar-text mr-2'>Welcome, {user.email}</span>
+			)}
 		</Navbar.Collapse>
 	</Navbar>
 )

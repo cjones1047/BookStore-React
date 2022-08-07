@@ -6,9 +6,8 @@ import messages from '../shared/AutoDismissAlert/messages'
 import axios from 'axios'
 
 import { getAllBooks } from '../../api/books'
-import CreateBook from './CreateBook'
+import CreateBook from './CrudBook'
 import BookListModal from './BookListModal'
-import BookViewModal from './BookViewModal'
 // import { CreateBook, bookToShow } from './CreateBook'
 
 const FilterIndexForm = (props) => {
