@@ -5,7 +5,8 @@ import BookForm from '../shared/BookForm';
 const cardContainerStyle = {
     display: 'flex',
     flexFlow: 'row wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    maxWidth: '1000px'
 }
 
 const BookListModal = (props) => {
@@ -14,7 +15,8 @@ const BookListModal = (props) => {
         msgAlert,
         booksToView, 
         heading,
-        setShowBookViewModal
+        setShowBookViewModal,
+        setUpdateTaggedBooks
     } = props
     
     const searchedBooks = () => {
@@ -46,6 +48,7 @@ const BookListModal = (props) => {
                                             user={user}
                                             msgAlert={msgAlert}
                                             book={book}
+                                            setUpdateTaggedBooks={setUpdateTaggedBooks}
                                         />
                                     :
                                         null
@@ -54,6 +57,7 @@ const BookListModal = (props) => {
                                     <Button 
                                         id={book.isbn} 
                                         onClick={e => setShowBookViewModal(e)} variant="light"
+                                        style={{width: '100%'}}
                                         >
                                             View
                                     </Button>

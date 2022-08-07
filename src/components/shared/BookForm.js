@@ -9,7 +9,15 @@ import { createBook } from '../../api/books';
 
 
 const BookForm = (props) => {
-    const { user, msgAlert, book, handleChange, heading, handleSubmit } = props
+    const { 
+        user, 
+        msgAlert, 
+        book, 
+        setUpdateTaggedBooks,
+        handleChange, 
+        heading, 
+        handleSubmit
+     } = props
 
     // this form will conditionally render a button based on whether the book exists on the index page (FilterIndexForm.js) or not
 
@@ -45,7 +53,10 @@ const BookForm = (props) => {
 
     return (
       <>
-        <Form onSubmit={onTagOrUntagClick}>
+        <Form onSubmit={(e) => {
+                onTagOrUntagClick(e)
+                setUpdateTaggedBooks()
+            }}>
 
             <Button 
                 variant="light" 

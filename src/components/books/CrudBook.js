@@ -15,7 +15,7 @@ const CrudBook = (props) => {
         setShowBookViewModal,
         bookInViewModal,
         handleClose, 
-        // updateBook, 
+        setUpdateTaggedBooks, 
         msgAlert, 
         // triggerRefresh
     } = props
@@ -61,6 +61,7 @@ const CrudBook = (props) => {
                             user={user}
                             msgAlert={msgAlert}
                             booksToView={booksToView}
+                            setUpdateTaggedBooks={setUpdateTaggedBooks}
                             heading="Any of these what you're looking for?"
                             setShowBookViewModal={bookToShow}
                         />

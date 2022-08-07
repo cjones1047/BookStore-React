@@ -6,7 +6,7 @@ import messages from '../shared/AutoDismissAlert/messages'
 import axios from 'axios'
 
 import { getAllBooks } from '../../api/books'
-import CreateBook from './CrudBook'
+import CrudBook from './CrudBook'
 import BookListModal from './BookListModal'
 // import { CreateBook, bookToShow } from './CreateBook'
 
@@ -20,6 +20,7 @@ const FilterIndexForm = (props) => {
     const [createBookModalShow, setCreateBookModalShow] = useState(false)
     const [showBookViewModal, setShowBookViewModal] = useState(false)
     const [bookInViewModal, setBookInViewModal] = useState({})
+    const [updateTaggedBooks, setUpdateTaggedBooks] = useState(true)
 
     // console.log('\ncurrent search value:\n', searchValue)
     // console.log('\ncurrent books to view:\n', booksToView)
@@ -55,7 +56,7 @@ const FilterIndexForm = (props) => {
                     variant: 'danger'
                 })
             })
-    },[])
+    },[updateTaggedBooks])
 
     // show a prompt to Tag books if no books exist, or an error message if database cannot be connected to
     if(!books) {
@@ -164,12 +165,13 @@ const FilterIndexForm = (props) => {
                         msgAlert={msgAlert}
                         booksToView={books}
                         setShowBookViewModal={bookToShow}
+                        setUpdateTaggedBooks={() => {setUpdateTaggedBooks(prev => !prev)}}
                     />
                     
                 </>
             }
 
-            <CreateBook 
+            <CrudBook 
                 user={user}
                 books={books}
                 booksToView={booksToView}
@@ -178,7 +180,7 @@ const FilterIndexForm = (props) => {
                 bookInViewModal={bookInViewModal}
                 showBookViewModal={showBookViewModal}
                 setShowBookViewModal={setShowBookViewModal}
-                // updateSupe={updateSupe}
+                setUpdateTaggedBooks={() => {setUpdateTaggedBooks(prev => !prev)}}
                 msgAlert={msgAlert}
                 // triggerRefresh={() => setUpdated(prev => !prev)}
                 handleClose={() => setCreateBookModalShow(false)}
