@@ -41,11 +41,16 @@ const BookListModal = (props) => {
                             <Card.Img variant="top" src={book.image} style={{ height: '225px', width: '155px' }} />
                             <Card.Body>
                                 <div style={{ textAlign: 'center', display: 'flex' }}>
-                                    <BookForm 
-                                        user={user}
-                                        msgAlert={msgAlert}
-                                        book={book}
-                                    />
+                                    {user ?
+                                        <BookForm
+                                            user={user}
+                                            msgAlert={msgAlert}
+                                            book={book}
+                                        />
+                                    :
+                                        null
+                                    }
+                                    
                                     <Button 
                                         id={book.isbn} 
                                         onClick={e => setShowBookViewModal(e)} variant="light"

@@ -5,24 +5,16 @@ import { createBookSuccess, createBookFailure } from "../shared/AutoDismissAlert
 import BookListModal from "./BookListModal";
 import BookViewModal from "./BookViewModal";
 
-export const bookToShow = (e) => {
-    setShowBookViewModal(true)
-    console.log(e.target.id)
-    const bookIsbn = e.target.id
-    setBookInViewModal(() => {
-        const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
-        console.log('book view modal being updated to:', viewedBook[0])
-        return (
-            viewedBook[0]
-        )
-    })
-}
-
 const CreateBook = (props) => {
     const {
         user, 
         show,
-        booksToView, 
+        books,
+        booksToView,
+        bookToShow,
+        showBookViewModal,
+        setShowBookViewModal,
+        bookInViewModal,
         handleClose, 
         // updateBook, 
         msgAlert, 
@@ -32,12 +24,11 @@ const CreateBook = (props) => {
     // const [showBookListModal, setShowBookListModal] = useState(false)
     // const [booksInModal, setBooksInModal] = useState(props.booksToView)
 
-    const [showBookViewModal, setShowBookViewModal] = useState(false)
-    const [bookInViewModal, setBookInViewModal] = useState({})
+    // const [showBookViewModal, setShowBookViewModal] = useState(false)
+    // const [bookInViewModal, setBookInViewModal] = useState({})
 
-    // console.log('book being viewed:',bookInViewModal)
+    // // console.log('book being viewed:',bookInViewModal)
 
-    // 'bookToShow' MOVED UP SO IT COULD BE EXPORTED
     // const bookToShow = (e) => {
     //     setShowBookViewModal(true)
     //     console.log(e.target.id)
@@ -82,6 +73,7 @@ const CreateBook = (props) => {
                 fullscreen={true} 
                 show={showBookViewModal} 
                 onHide={() => setShowBookViewModal(false)}
+                style={{opacity: '1'}}
                 >
                 <Modal.Header 
                     closeButton
@@ -89,10 +81,11 @@ const CreateBook = (props) => {
                     style={{backgroundColor: 'black', color: 'white'}}
                     />
                 <Modal.Body 
-                    style={{backgroundColor: 'black', color: 'white'}}
+                    style={{backgroundColor: 'black', color: 'rgba(255,255,255,1'}}
                     >
                         <BookViewModal
                             bookInViewModal={bookInViewModal}
+                            setShowBookViewModal={setShowBookViewModal}
                         />
                 </Modal.Body>
             </Modal>

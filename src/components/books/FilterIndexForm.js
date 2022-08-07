@@ -8,7 +8,8 @@ import axios from 'axios'
 import { getAllBooks } from '../../api/books'
 import CreateBook from './CreateBook'
 import BookListModal from './BookListModal'
-import { bookToShow } from './CreateBook'
+import BookViewModal from './BookViewModal'
+// import { CreateBook, bookToShow } from './CreateBook'
 
 const FilterIndexForm = (props) => {
 
@@ -18,8 +19,26 @@ const FilterIndexForm = (props) => {
     const [searchValue, setSearchValue] = useState('')
     const [booksToView, setBooksToView] = useState([])
     const [createBookModalShow, setCreateBookModalShow] = useState(false)
+    const [showBookViewModal, setShowBookViewModal] = useState(false)
+    const [bookInViewModal, setBookInViewModal] = useState({})
+
     // console.log('\ncurrent search value:\n', searchValue)
     // console.log('\ncurrent books to view:\n', booksToView)
+
+    // console.log('book being viewed:',bookInViewModal)
+
+    const bookToShow = (e) => {
+        console.log(e.target.id)
+        const bookIsbn = e.target.id
+        setBookInViewModal(() => {
+            const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
+            console.log('book view modal being updated to:', viewedBook[0])
+            return (
+                viewedBook[0]
+            )
+        })
+        setShowBookViewModal(true)
+    }
 
     useEffect(() => {
         // console.log('use effect works')
@@ -33,7 +52,7 @@ const FilterIndexForm = (props) => {
                     variant: 'danger'
                 })
             })
-    }, [])
+    },[])
 
     // show a prompt to Tag books if no books exist, or an error message if database cannot be connected to
     if(!books) {
@@ -143,20 +162,25 @@ const FilterIndexForm = (props) => {
                         booksToView={books}
                         setShowBookViewModal={bookToShow}
                     />
-
-                    <CreateBook 
-                        user={user}
-                        booksToView={booksToView}
-                        show={createBookModalShow}
-                        // updateSupe={updateSupe}
-                        msgAlert={msgAlert}
-                        // triggerRefresh={() => setUpdated(prev => !prev)}
-                        handleClose={() => setCreateBookModalShow(false)}
-                    />
+                    
                 </>
             }
 
-            
+            <CreateBook 
+                user={user}
+                books={books}
+                booksToView={booksToView}
+                show={createBookModalShow}
+                bookToShow={bookToShow}
+                bookInViewModal={bookInViewModal}
+                showBookViewModal={showBookViewModal}
+                setShowBookViewModal={setShowBookViewModal}
+                // updateSupe={updateSupe}
+                msgAlert={msgAlert}
+                // triggerRefresh={() => setUpdated(prev => !prev)}
+                handleClose={() => setCreateBookModalShow(false)}
+            />
+
         </>
 
 	)
