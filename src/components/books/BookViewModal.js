@@ -1,4 +1,5 @@
 import { Card, Col, Row, Container } from 'react-bootstrap';
+import CommentForm from '../comments/CommentForm';
 
 const BookViewModal = (props) => {
     const { 
@@ -25,6 +26,9 @@ const BookViewModal = (props) => {
             </Row>
             <Row className='justify-content-center'>
                 {bookInViewModal.description}
+            </Row>
+            <Row>
+                < CommentForm />
             </Row>
         </Container>
     ) 
