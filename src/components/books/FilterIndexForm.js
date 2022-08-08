@@ -56,6 +56,23 @@ const FilterIndexForm = (props) => {
                     variant: 'danger'
                 })
             })
+    },[])
+
+    useEffect(() => {
+        // console.log('use effect works')
+        console.log('props:\n',props)
+        getAllBooks()
+            .then(res => {
+                setBooks(res.data.books)
+                return
+            })
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error getting books',
+                    message: messages.getBooksFailure,
+                    variant: 'danger'
+                })
+            })
     },[updateTaggedBooks])
 
     // show a prompt to Tag books if no books exist, or an error message if database cannot be connected to

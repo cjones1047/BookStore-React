@@ -43,7 +43,7 @@ const BookListModal = (props) => {
                             <Card.Img variant="top" src={book.image} style={{ height: '250px', width: '180px' }} />
                             <Card.Body>
                                 <div style={{ textAlign: 'center', display: 'flex' }}>
-                                    {user ?
+                                    {user && book.owner && book.owner._id === user.id ?
                                         <BookForm
                                             user={user}
                                             msgAlert={msgAlert}

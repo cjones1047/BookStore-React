@@ -1,5 +1,9 @@
 const CommentForm = (props) => {
-    return 'This is the CommentForm component'
+    return (
+        <div style={{color: 'red'}}>
+            This will be the CommentForm component
+        </div>
+    )
 }
 
 export default CommentForm

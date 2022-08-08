@@ -1,5 +1,6 @@
 import { Card, Col, Row, Container } from 'react-bootstrap';
 import CommentForm from '../comments/CommentForm';
+import { getAllBooks } from '../../api/books';
 
 const BookViewModal = (props) => {
     const { 
