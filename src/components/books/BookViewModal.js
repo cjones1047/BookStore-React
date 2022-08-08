@@ -1,6 +1,6 @@
 import { Card, Col, Row, Container } from 'react-bootstrap';
 import CommentForm from '../comments/CommentForm';
-import { getAllBooks } from '../../api/books';
+// import { getAllBooks } from '../../api/books';
 
 const BookViewModal = (props) => {
     const { 
@@ -8,6 +8,8 @@ const BookViewModal = (props) => {
     } = props
     
     // console.log(window.innerWidth)
+
+    console.log(bookInViewModal)
 
     // render formatting changes based on a 500-pixel breakpoint
     if(window.innerWidth > 500)

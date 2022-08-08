@@ -33,15 +33,15 @@ const FilterIndexForm = (props) => {
         setBookInViewModal(() => {
             let viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
 
-            if( viewedBook.length === 0 ) {
-                console.log('Viewed book is empty')
+            if( books.filter(book => book.isbn === bookIsbn).length > 0 ) {
+                console.log('Viewed book was in database')
                 viewedBook = books.filter(book => book.isbn === bookIsbn)
-                console.log('This is the book in database:')
-                console.log(viewedBook[0])
+                // console.log('This is the book in database:')
+                // console.log(viewedBook[0])
             } else {
-                console.log('Viewed book was in booksToView')
-                console.log('This was the book in booksToView:')
-                console.log(viewedBook[0])
+                console.log('Viewed book was NOT in database, only in booksToView')
+                // console.log('This was the book in booksToView:')
+                // console.log(viewedBook[0])
             }
                 
             // console.log('book view modal being updated to:', viewedBook[0])
