@@ -28,11 +28,24 @@ const FilterIndexForm = (props) => {
     // console.log('book being viewed:',bookInViewModal)
 
     const bookToShow = (e) => {
-        console.log(e.target.id)
+        // console.log(e.target.id)
         const bookIsbn = e.target.id
         setBookInViewModal(() => {
-            const viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
-            console.log('book view modal being updated to:', viewedBook[0])
+            let viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
+
+            if( viewedBook.length === 0 ) {
+                console.log('Viewed book is empty')
+                viewedBook = books.filter(book => book.isbn === bookIsbn)
+                console.log('This is the book in database:')
+                console.log(viewedBook[0])
+            } else {
+                console.log('Viewed book was in booksToView')
+                console.log('This was the book in booksToView:')
+                console.log(viewedBook[0])
+            }
+                
+            // console.log('book view modal being updated to:', viewedBook[0])
+
             return (
                 viewedBook[0]
             )
@@ -42,25 +55,7 @@ const FilterIndexForm = (props) => {
 
     useEffect(() => {
         // console.log('use effect works')
-        console.log('props:\n',props)
-        getAllBooks()
-            .then(res => {
-                setBooks(res.data.books)
-                setBooksToView(res.data.books)
-                return
-            })
-            .catch(err => {
-                msgAlert({
-                    heading: 'Error getting books',
-                    message: messages.getBooksFailure,
-                    variant: 'danger'
-                })
-            })
-    },[])
-
-    useEffect(() => {
-        // console.log('use effect works')
-        console.log('props:\n',props)
+        // console.log('props:\n',props)
         getAllBooks()
             .then(res => {
                 setBooks(res.data.books)
@@ -181,6 +176,7 @@ const FilterIndexForm = (props) => {
                         user={user}
                         msgAlert={msgAlert}
                         booksToView={books}
+                        booksAlreadyTagged={books}
                         setShowBookViewModal={bookToShow}
                         setUpdateTaggedBooks={() => {setUpdateTaggedBooks(prev => !prev)}}
                     />
