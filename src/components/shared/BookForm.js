@@ -1,94 +1,122 @@
-import { Button, Card, Col, Form, Row, Container } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom'
 
-// style for book cards container
-const cardContainerStyle = {
-    display: 'flex',
-    flexFlow: 'row wrap',
-    justifyContent: 'center'
-}
+import messages from './AutoDismissAlert/messages';
+import { createBook, removeBook } from '../../api/books';
+
 
 const BookForm = (props) => {
     const { 
-        booksToView, 
-        handleSubmit, 
-        heading 
-    } = props
-    
-    const searchedBooks = booksToView.map((book, i) => 
-        <Card bg={'secondary'} text={'light'} style={{width: 'fit-content', margin: '15px', justifyContent: 'center'}} key={i}>
-            <Card.Img variant="top" src={book.image} style={{height: '225px', width: '180px'}}/>
-            <Card.Body>
-                {/* <Card.Text>
-                    by {book.authors}
-                </Card.Text> */}
-                <Button variant="light">Tag</Button>
-            </Card.Body>
-        </Card>
-    )
-    // return (
-    //     <div style={cardContainerStyle}>
-    //         {supeCards}
-    //     </div>    
-    // )
-    
+        user, 
+        msgAlert, 
+        book, 
+        setUpdateTaggedBooks,
+     } = props
+
+     const navigate = useNavigate()
+
+    // this form will conditionally render a button based on whether the book exists on the index page (FilterIndexForm.js) or not
+
+        // if book does NOT exist in FilterIndexForm (and therefore does NOT exist in the database) this component will render as a 'Tag' button (linked to the hidden form element in side the 'div below)
+        // if book DOES exist in FilterIndexForm (and therefore DOES exist in the database) this component will render as an 'Untag' button (linked to a 'delete' route by importing 'books.js')
+
+    // this allows all creation or deletion for a single book document in our database to be tied into one reuseable, shareable component that only takes up the space of one little button
+
+    const onTagClick = (e) => {
+        e.preventDefault()
+        // console.log('Here is the book you are creating:')
+        // console.log(book)
+
+        createBook(user, book)
+        // promise handling for createBook here:
+            // send a success message to the user
+            .then(setUpdateTaggedBooks)
+            .then(() => {
+                msgAlert({
+                    heading: 'Nice!',
+                    message: messages.createBookSuccess,
+                    variant: 'success'
+                })
+            })
+            // if there is an error, tell the user about it
+            .catch(() => {
+                msgAlert({
+                    heading: 'Oh no...',
+                    message: messages.createBookFailure,
+                    variant: 'danger'
+                })
+            })
+
+        setUpdateTaggedBooks()
+
+    }
+
+    const onUntagClick = (e) => {
+        e.preventDefault()
+
+        removeBook(user, book._id)
+            // on success, send a success message
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Success',
+            //         message: messages.removeBookSuccess,
+            //         variant: 'success'
+            //     })
+            // })
+            // then navigate to index
+            .then(setUpdateTaggedBooks)
+            .then(() => {
+                navigate('/')
+            })
+            // on failure, send a failure message
+            .catch(err => {
+                navigate('/')
+                // navigate back to home page if there's an error fetching
+                msgAlert({
+                    heading: 'Error removing book',
+                    message: messages.removeBookFailure,
+                    variant: 'danger'
+                })
+            })
+
+        setUpdateTaggedBooks()
+        
+    }
+
     return (
-        <>
-            {/* <Container className='justify-content-center' style={{color:'white', textShadow: '3px 3px 3px black', marginTop: '20px'}}>
-                <h3>{heading}</h3>
-                <Form onSubmit={handleSubmit}>
-                    <Row className="mb-3">
-                        <Form.Group as={Col}>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control 
-                                placeholder="Enter supe's name here"
-                                value={ supe.name }
-                                name='name'
-                                type='text'
-                                onChange={ handleChange } />
-                                
-                        </Form.Group>
+      <>
+        { book.owner && user && book.owner._id === user.id
+        ?
+            <Form onSubmit={(e) => {
+                onUntagClick(e)
+            }}>
 
-                        <Form.Group as={Col}>
-                            <Form.Label>Rating</Form.Label>
-                            <Form.Control 
-                                placeholder="Supe's rating (1 to 100)"
-                                value={ supe.rating }
-                                name="rating"
-                                type="number"
-                                min="1"
-                                max="100"
-                                onChange={ handleChange } />
-                        </Form.Group>
-                    </Row>
+                <Button
+                    variant="danger"
+                    type="submit"
+                    style={{ marginRight: '10px' }}
+                    >
+                        Untag
+                </Button>
 
-                    <Row className="mb-3">
-                        <Form.Group as={Col}>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control 
-                                placeholder="Enter supe's description"
-                                value={ supe.description }
-                                name="description"
-                                type="text"
-                                onChange={ handleChange } />
-                        </Form.Group>
-                    </Row>
+            </Form>
+        :   
+            <Form onSubmit={(e) => {
+                onTagClick(e)
+            }}>
 
-                    <Row className="mb-3">
-                        <Form.Group as={Col}>
-                            <Form.Check name='hero' type="checkbox" defaultChecked={ supe.hero }label="Is this supe a hero?" 
-                            onChange={ handleChange }/>
-                        </Form.Group>
-                    </Row>
+                <Button 
+                    variant="outline-light" 
+                    type="submit"
+                    style={{ marginRight: '10px' }}
+                    >
+                        Tag
+                </Button>
 
-                    <Button variant="secondary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
-            </Container> */}
-            <div style={cardContainerStyle} >
-                {searchedBooks}
-            </div>
-        </>
+            </Form>
+        }
+      </>
     );
 }
 

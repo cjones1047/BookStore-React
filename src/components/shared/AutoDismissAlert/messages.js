@@ -6,6 +6,7 @@ const messages = {
 	signOutSuccess: 'Come back soon!',
 	changePasswordSuccess: 'Password changed successfully!',
 	changePasswordFailure:'Failed to change passwords. Check your old password and try again.',
+	getBooksFailure: "Can't connect to the database...",
 	createBookSuccess: 'Book added to Tagged Books page!',
 	createBookFailure: 'Something went wrong, could not add that to Tagged Books...'
 }
