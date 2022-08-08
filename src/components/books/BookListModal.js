@@ -40,7 +40,7 @@ const BookListModal = (props) => {
                 else filteredBook = {...filteredBook,
                     ...(
                         <Card bg={'secondary'} text={'light'} style={{ width: 'fit-content', margin: '15px', justifyContent: 'center' }} key={i}>
-                            <Card.Img variant="top" src={book.image} style={{ height: '225px', width: '155px' }} />
+                            <Card.Img variant="top" src={book.image} style={{ height: '250px', width: '180px' }} />
                             <Card.Body>
                                 <div style={{ textAlign: 'center', display: 'flex' }}>
                                     {user ?
@@ -56,8 +56,8 @@ const BookListModal = (props) => {
                                     
                                     <Button 
                                         id={book.isbn} 
-                                        onClick={e => setShowBookViewModal(e)} variant="light"
-                                        style={{width: '100%'}}
+                                        onClick={e => setShowBookViewModal(e)} variant="info"
+                                        style={{width: '100%', color: 'white'}}
                                         >
                                             View
                                     </Button>

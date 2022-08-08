@@ -1,11 +1,9 @@
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import { Container } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 import messages from './AutoDismissAlert/messages';
-import { createBook } from '../../api/books';
+import { createBook, removeBook } from '../../api/books';
 
 
 const BookForm = (props) => {
@@ -14,10 +12,9 @@ const BookForm = (props) => {
         msgAlert, 
         book, 
         setUpdateTaggedBooks,
-        handleChange, 
-        heading, 
-        handleSubmit
      } = props
+
+     const navigate = useNavigate()
 
     // this form will conditionally render a button based on whether the book exists on the index page (FilterIndexForm.js) or not
 
@@ -26,7 +23,7 @@ const BookForm = (props) => {
 
     // this allows all creation or deletion for a single book document in our database to be tied into one reuseable, shareable component that only takes up the space of one little button
 
-    const onTagOrUntagClick = (e) => {
+    const onTagClick = (e) => {
         e.preventDefault()
         // console.log('Here is the book you are creating:')
         // console.log(book)
@@ -34,6 +31,7 @@ const BookForm = (props) => {
         createBook(user, book)
         // promise handling for createBook here:
             // send a success message to the user
+            .then(setUpdateTaggedBooks)
             .then(() => {
                 msgAlert({
                     heading: 'Nice!',
@@ -49,95 +47,77 @@ const BookForm = (props) => {
                     variant: 'danger'
                 })
             })
+
+        setUpdateTaggedBooks()
+
+    }
+
+    const onUntagClick = (e) => {
+        e.preventDefault()
+
+        removeBook(user, book._id)
+            // on success, send a success message
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Success',
+            //         message: messages.removeBookSuccess,
+            //         variant: 'success'
+            //     })
+            // })
+            // then navigate to index
+            .then(setUpdateTaggedBooks)
+            .then(() => {
+                navigate('/')
+            })
+            // on failure, send a failure message
+            .catch(err => {
+                navigate('/')
+                // navigate back to home page if there's an error fetching
+                msgAlert({
+                    heading: 'Error removing book',
+                    message: messages.removeBookFailure,
+                    variant: 'danger'
+                })
+            })
+
+        setUpdateTaggedBooks()
+        
     }
 
     return (
       <>
-        <Form onSubmit={(e) => {
-                onTagOrUntagClick(e)
-                setUpdateTaggedBooks()
+        { book.owner && user && book.owner._id === user.id
+        ?
+            <Form onSubmit={(e) => {
+                onUntagClick(e)
             }}>
 
-            <Button 
-                variant="light" 
-                type="submit"
-                style={{ marginRight: '10px' }}
-                >
-                    Tag
-            </Button>
+                <Button
+                    variant="danger"
+                    type="submit"
+                    style={{ marginRight: '10px' }}
+                    >
+                        Untag
+                </Button>
 
-        </Form>
+            </Form>
+        :   
+            <Form onSubmit={(e) => {
+                onTagClick(e)
+            }}>
+
+                <Button 
+                    variant="outline-light" 
+                    type="submit"
+                    style={{ marginRight: '10px' }}
+                    >
+                        Tag
+                </Button>
+
+            </Form>
+        }
       </>
     );
 }
 
 export default BookForm
-
-
-// IN CASE WE NEED IT LATER:
-
-{/* <div style={{display: 'none'}}>
-    <Row className="mb-3">
-        <Form.Group as={Col}>
-            <Form.Control 
-                placeholder="Book's title"
-                value={ book.title }
-                name='title'
-                type='text'
-                />
-        </Form.Group>
-
-        <Form.Group as={Col}>
-            <Form.Control 
-                placeholder="Book's author(s)"
-                value={ book.authors }
-                name="authors"
-                type="text"
-                />
-        </Form.Group>
-    </Row>
-
-    <Row className="mb-3">
-        <Form.Group as={Col}>
-            <Form.Control 
-                placeholder="Book's description"
-                value={ book.description }
-                name="description"
-                type="text"
-                />
-        </Form.Group>
-    </Row>
-
-    <Row className="mb-3">
-        <Form.Group as={Col}>
-            <Form.Control 
-                placeholder="Book's image"
-                value={ book.image }
-                name="image"
-                type="text"
-                />
-        </Form.Group>
-    </Row>
-
-    <Row className="mb-3">
-        <Form.Group as={Col}>
-            <Form.Control 
-                placeholder="Book's ISBN number"
-                value={ book.isbn }
-                name="isbn"
-                type="text"
-                />
-        </Form.Group>
-    </Row>
-
-    <Row className="mb-3">
-        <Form.Group as={Col}>
-            <Form.Control 
-                placeholder="Book's publisher"
-                value={ book.publisher }
-                name="publisher"
-                type="text"
-                />
-        </Form.Group>
-    </Row>
-</div> */}

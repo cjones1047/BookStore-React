@@ -26,3 +26,14 @@ export const createBook = (user, newBook) => {
 		},
 	})
 }
+
+// DELETE
+export const removeBook = (user, bookId) => {
+	return axios({
+		url:`${apiUrl}/books/${bookId}`,
+		method: 'DELETE',
+		headers: {
+			Authorization: `Token token=${user.token}`
+		}
+	})
+}

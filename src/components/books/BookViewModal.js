@@ -1,9 +1,8 @@
-import { Button, Card, Col, Form, Row, Container } from 'react-bootstrap';
+import { Card, Col, Row, Container } from 'react-bootstrap';
 
 const BookViewModal = (props) => {
     const { 
-        bookInViewModal,
-        setShowBookViewModal
+        bookInViewModal
     } = props
     
     // console.log(window.innerWidth)
