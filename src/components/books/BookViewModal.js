@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Col, Row, Container, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import CommentForm from '../comments/CommentForm';
+import CommentList from '../comments/CommentList';
 // import { getAllBooks } from '../../api/books';
 
 const BookViewModal = (props) => {
@@ -12,6 +13,8 @@ const BookViewModal = (props) => {
     } = props
     
     // console.log(window.innerWidth)
+
+    const [updatedCommentList, setUpdatedCommentList] = useState(true)
 
     console.log('Book in view modal: ', bookInViewModal)
     console.log('User logged in: ', user)
@@ -42,11 +45,22 @@ const BookViewModal = (props) => {
                         user={user}
                         msgAlert={msgAlert}
                         bookInViewModal={bookInViewModal}
+                        updatedCommentList={updatedCommentList}
+                        setUpdatedCommentList={() => setUpdatedCommentList(prev => !prev)}
                     />
                 </Row>
             :
                 null
             }
+            <Row>
+                <CommentList
+                    user={user}
+                    msgAlert={msgAlert}
+                    bookInViewModal={bookInViewModal}
+                    updatedCommentList={updatedCommentList}
+                    setUpdatedCommentList={() => setUpdatedCommentList(prev => !prev)}
+                />
+            </Row>
             
         </Container>
     ) 

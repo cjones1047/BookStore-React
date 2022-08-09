@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap"
+import { Form, Button, Toast, ToastContainer } from "react-bootstrap"
 import { useState } from "react"
 
 import { createComment } from "../../api/comments"
@@ -8,12 +8,14 @@ const CommentForm = (props) => {
     const {
       user,
       msgAlert,
-      bookInViewModal
+      bookInViewModal,
+      updatedCommentList,
+      setUpdatedCommentList
     } = props
 
     const [commentNote, setCommentNote] = useState('')
 
-    console.log('Current note input value: ', commentNote)
+    // console.log('Current note input value: ', commentNote)
 
     const handleChange = (e) => {
       const note = e.target.value
@@ -31,13 +33,14 @@ const CommentForm = (props) => {
           // if we're successful in the modal, we want to refreshComments
           // .then(() => refreshComments())
           // send a success message to the user
-          .then(() => {
-              msgAlert({
-                  heading: 'Oh Yeah!',
-                  message: `Your comment was posted `,
-                  variant: 'success'
-              })
-          })
+          // .then(() => {
+          //     msgAlert({
+          //         heading: 'Oh Yeah!',
+          //         message: `Your comment was posted `,
+          //         variant: 'success'
+          //     })
+          // })
+          .then(setUpdatedCommentList)
           .catch(() => {
               msgAlert({
                   heading: 'Oh no!',
@@ -68,7 +71,9 @@ const CommentForm = (props) => {
               >
                 Post Comment
             </Button>
+
           </Form>
+
       </div>
     )
 }

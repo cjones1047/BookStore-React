@@ -1,6 +1,11 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
+// INDEX
+export const getAllComments = (bookId) => {
+    return axios(`${apiUrl}/comments/${bookId}`)
+}
+
 // CREATE
 export const createComment = (user, bookId, note) => {
     // console.log('createComment in API was hit')
