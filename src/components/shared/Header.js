@@ -1,17 +1,27 @@
 import './Header.css'
 
+import { Link } from 'react-router-dom'
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
+const linkStyle = {
+    color: 'rgba(0,0,0,.55)',
+    textDecoration: 'none'
+}
+
 const authenticatedOptions = (
 	<>
-		<Nav.Link className="nav-element" href="change-password">
-			Change Password
+		<Nav.Link className="nav-element" >
+			<Link to='change-password' style={linkStyle}>
+				Change Password
+			</Link>
 		</Nav.Link>
 		<div className='vr' />
-		<Nav.Link className="nav-element" href="sign-out">
-			Sign Out
+		<Nav.Link className="nav-element" >
+			<Link to='sign-out' style={linkStyle}>
+				Sign Out
+			</Link>
 		</Nav.Link>
 	</>
 )
