@@ -153,7 +153,7 @@ const FilterIndexForm = (props) => {
                     required
                 />
                 <Button type='submit' style={{whiteSpace: 'nowrap'}} variant="outline-secondary">
-                    Search the web
+                    Search book
                 </Button>
             </Form>
 
@@ -161,11 +161,7 @@ const FilterIndexForm = (props) => {
                 <>
                     <h1 
                         style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
-                            No one has tagged that yet,
-                    </h1>
-                    <h1 
-                        style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
-                            Search it and be the first!
+                            Let's search some books to add!
                     </h1>
                 </>
             :

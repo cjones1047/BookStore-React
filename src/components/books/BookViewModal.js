@@ -1,15 +1,20 @@
-import { Card, Col, Row, Container } from 'react-bootstrap';
+import React from 'react';
+import { Card, Col, Row, Container, Button, Modal } from 'react-bootstrap';
+import { useState } from 'react';
 import CommentForm from '../comments/CommentForm';
 // import { getAllBooks } from '../../api/books';
 
 const BookViewModal = (props) => {
-    const { 
+    const {
+        user,
+        msgAlert,
         bookInViewModal
     } = props
     
     // console.log(window.innerWidth)
 
-    console.log(bookInViewModal)
+    console.log('Book in view modal: ', bookInViewModal)
+    console.log('User logged in: ', user)
 
     // render formatting changes based on a 500-pixel breakpoint
     if(window.innerWidth > 500)
@@ -30,9 +35,19 @@ const BookViewModal = (props) => {
             <Row className='justify-content-center'>
                 {bookInViewModal.description}
             </Row>
-            <Row>
-                < CommentForm />
-            </Row>
+            {user 
+            ?
+                <Row>
+                    <CommentForm
+                        user={user}
+                        msgAlert={msgAlert}
+                        bookInViewModal={bookInViewModal}
+                    />
+                </Row>
+            :
+                null
+            }
+            
         </Container>
     ) 
     else return (

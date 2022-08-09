@@ -69,11 +69,10 @@ const CrudBook = (props) => {
                 </Modal.Body>
             </Modal>
 
-            <Modal
-                fullscreen={true} 
+            <Modal 
+                fullscreen={true}
                 show={showBookViewModal} 
                 onHide={() => setShowBookViewModal(false)}
-                backdrop={true}
                 style={{opacity: '1'}}
                 >
                 <Modal.Header 
@@ -81,11 +80,13 @@ const CrudBook = (props) => {
                     closeVariant="white"
                     style={{backgroundColor: 'black', color: 'white'}}
                     />
-                <Modal.Body 
+                <Modal.Body
                     style={{backgroundColor: 'black', color: 'rgba(255,255,255,1'}}
                     >
                         <BookViewModal
+                            user={user}
                             bookInViewModal={bookInViewModal}
+                            msgAlert={msgAlert}
                             setShowBookViewModal={setShowBookViewModal}
                         />
                 </Modal.Body>
