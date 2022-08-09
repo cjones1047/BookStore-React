@@ -1,7 +1,8 @@
+import './CommentList.css'
 import { Form, Button, Toast, ToastContainer } from "react-bootstrap"
 import { useState, useEffect } from "react"
 
-import { getAllComments, deleteComment } from "../../api/comments"
+import { getAllComments, deleteComment, updateComment } from "../../api/comments"
 
 const CommentList = (props) => {
 
@@ -14,8 +15,63 @@ const CommentList = (props) => {
     } = props
 
     const [allComments, setAllComments] = useState(bookInViewModal.comments)
+    const [commentToEdit, setCommentToEdit] = useState({
+        id: null,
+        note: null,
+        showEditBox: false
+    })
+    const [commentNoteBeingEdited, setCommentNoteBeingEdited] = useState(commentToEdit.note)
+
+    console.log(commentToEdit)
 
     // console.log('Current note input value: ', commentNote)
+
+    const handleChange = (e) => {
+        setCommentToEdit((prev) => {
+            let updatedTextBoxValue = e.target.value
+
+            return {
+                id: prev.id,
+                note: updatedTextBoxValue,
+                showEditBox: prev.showEditBox
+            }
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        updateComment(user, bookInViewModal._id, commentToEdit)
+            // on success, send a success message
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Success',
+            //         message: messages.removeBookSuccess,
+            //         variant: 'success'
+            //     })
+            // })
+            // then navigate to index
+            .then(setUpdatedCommentList)
+            // .then(() => {
+            //     navigate('/')
+            // })
+            // on failure, send a failure message
+            .then(setCommentToEdit({
+                    id: null,
+                    note: null,
+                    showEditBox: false
+                })
+            )
+            .catch(err => {
+                // navigate('/')
+                // navigate back to home page if there's an error fetching
+                msgAlert({
+                    heading: 'Error editing comment',
+                    message: "Couldn't edit that comment for you...",
+                    variant: 'danger'
+                })
+            })
+    }
 
     const deleteThisComment = (e) => {
         e.preventDefault()
@@ -33,11 +89,62 @@ const CommentList = (props) => {
             })
     }
 
+    const editThisComment = (e) => {
+        e.preventDefault()
+
+        console.log(e)
+
+        const thisId = e.target.id
+        const thisNote = e.target.lang
+
+        setCommentToEdit((prev) => {
+            return {id: thisId, note: thisNote, showEditBox: !prev.showEditBox}
+        })
+    }
+
     const listOfComments = allComments.map((comment,i) => {
         return (
             <Toast key={i}>
               <Toast.Header closeButton={false}>
-                <strong className="me-auto" style={{margin: 0, padding: '0 5px'}}>&nbsp;</strong>
+                {user && comment.owner && comment.owner === user._id
+                ?
+                    user && comment.owner && comment.owner === user._id && commentToEdit.showEditBox && commentToEdit.id === comment._id
+                    ?
+
+                        <strong
+                            id={comment._id}
+                            lang={comment.note}
+                            className="me-auto edit-button" 
+                            onClick={editThisComment} 
+                            style={{margin: 0, padding: '0 5px', color: 'red'}}
+                            >
+                                Cancel Editing
+                        </strong>
+                    
+                    :
+
+                        <strong
+                            id={comment._id}
+                            lang={comment.note}
+                            className="me-auto edit-button" 
+                            onClick={editThisComment} 
+                            style={{margin: 0, padding: '0 5px'}}
+                            >
+                                Edit
+                        </strong>
+                
+                :
+                   <strong
+                        id={comment._id}
+                        lang={comment.note}
+                        className="me-auto edit-button" 
+                        onClick={editThisComment} 
+                        style={{margin: 0, padding: '0 5px'}}
+                        >
+                            &nbsp;
+                    </strong>
+                }
+                
 
                 {user && comment.owner && comment.owner === user._id
                 ?
@@ -55,7 +162,34 @@ const CommentList = (props) => {
                 
               </Toast.Header>
               <Toast.Body style={{color: 'black'}}>
-                {comment.note}
+                {commentToEdit.showEditBox && commentToEdit.id === comment._id
+                ?
+                    <Form onSubmit={handleSubmit}>
+
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Control
+                                placeholder="Post a comment"
+                                value={commentToEdit.note}
+                                name="note"
+                                type="text"
+                                onChange={handleChange}
+                                as="textarea"
+                                rows={3}
+                                required
+                            />
+                        </Form.Group>
+                        <Button
+                            type="submit"
+                            variant="success"
+                        >
+                            Confirm Edit
+                        </Button>
+
+                    </Form>
+                :
+                    comment.note
+                }
+                
               </Toast.Body>
             </Toast>
         )
