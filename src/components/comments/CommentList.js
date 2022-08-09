@@ -1,7 +1,7 @@
 import { Form, Button, Toast, ToastContainer } from "react-bootstrap"
 import { useState, useEffect } from "react"
 
-import { getAllComments } from "../../api/comments"
+import { getAllComments, deleteComment } from "../../api/comments"
 
 const CommentList = (props) => {
 
@@ -17,12 +17,42 @@ const CommentList = (props) => {
 
     // console.log('Current note input value: ', commentNote)
 
+    const deleteThisComment = (e) => {
+        e.preventDefault()
+
+        const commentId = e.target.id
+
+        deleteComment(user, bookInViewModal._id, commentId)
+            .then(setUpdatedCommentList)
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error deleting comment',
+                    message: 'Could not delete that comment for some reason...',
+                    variant: 'danger'
+                })
+            })
+    }
+
     const listOfComments = allComments.map((comment,i) => {
         return (
             <Toast key={i}>
               <Toast.Header closeButton={false}>
-                <strong className="me-auto"></strong>
-                <small>To be a delete button</small>
+                <strong className="me-auto" style={{margin: 0, padding: '0 5px'}}>&nbsp;</strong>
+
+                {user && comment.owner && comment.owner === user._id
+                ?
+                    <Button 
+                        variant="light"
+                        id={comment._id}
+                        onClick={deleteThisComment}
+                        style={{height: 'fit-content', margin: 0, padding: '0 5px', fontFamily: 'Times'}}
+                        >
+                            X
+                    </Button>
+                :
+                    null
+                }
+                
               </Toast.Header>
               <Toast.Body style={{color: 'black'}}>
                 {comment.note}
@@ -46,6 +76,7 @@ const CommentList = (props) => {
                     variant: 'danger'
                 })
             })
+        
     },[updatedCommentList])
 
     // const handleChange = (e) => {
@@ -81,7 +112,7 @@ const CommentList = (props) => {
     // }
   
     return (
-      <div style={{marginTop: '0px', marginBottom: '30px'}}>
+      <div style={{marginTop: '10px', marginBottom: '30px'}}>
 
           <ToastContainer className="p-3 m-auto" >
             {listOfComments}

@@ -51,7 +51,7 @@ const CommentForm = (props) => {
     }
   
     return (
-      <div style={{marginTop: '30px', marginBottom: '30px'}}>
+      <div style={{marginTop: '30px', marginBottom: '5px'}}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Control
