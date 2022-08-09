@@ -33,15 +33,15 @@ const FilterIndexForm = (props) => {
         setBookInViewModal(() => {
             let viewedBook = booksToView.filter(book => book.isbn === bookIsbn)
 
-            if( viewedBook.length === 0 ) {
-                console.log('Viewed book is empty')
+            if( books.filter(book => book.isbn === bookIsbn).length > 0 ) {
+                console.log('Viewed book was in database')
                 viewedBook = books.filter(book => book.isbn === bookIsbn)
-                console.log('This is the book in database:')
-                console.log(viewedBook[0])
+                // console.log('This is the book in database:')
+                // console.log(viewedBook[0])
             } else {
-                console.log('Viewed book was in booksToView')
-                console.log('This was the book in booksToView:')
-                console.log(viewedBook[0])
+                console.log('Viewed book was NOT in database, only in booksToView')
+                // console.log('This was the book in booksToView:')
+                // console.log(viewedBook[0])
             }
                 
             // console.log('book view modal being updated to:', viewedBook[0])
@@ -58,7 +58,7 @@ const FilterIndexForm = (props) => {
         // console.log('props:\n',props)
         getAllBooks()
             .then(res => {
-                setBooks(res.data.books)
+                setBooks(res.data.books.reverse())
                 return
             })
             .catch(err => {
@@ -145,7 +145,7 @@ const FilterIndexForm = (props) => {
                     id='search-book-field'
                     autoComplete='off'
                     type="search"
-                    placeholder="Any book title here..."
+                    placeholder="Any book title or author here..."
                     className="me-2"
                     aria-label="Search the web"
                     value={searchValue}
@@ -153,7 +153,7 @@ const FilterIndexForm = (props) => {
                     required
                 />
                 <Button type='submit' style={{whiteSpace: 'nowrap'}} variant="outline-secondary">
-                    Search the web
+                    Search
                 </Button>
             </Form>
 
@@ -161,11 +161,7 @@ const FilterIndexForm = (props) => {
                 <>
                     <h1 
                         style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
-                            No one has tagged that yet,
-                    </h1>
-                    <h1 
-                        style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
-                            Search it and be the first!
+                            Let's search some books to add!
                     </h1>
                 </>
             :

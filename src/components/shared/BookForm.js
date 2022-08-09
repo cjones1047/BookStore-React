@@ -14,7 +14,7 @@ const BookForm = (props) => {
         setUpdateTaggedBooks,
      } = props
 
-     const navigate = useNavigate()
+    const navigate = useNavigate()
 
     // this form will conditionally render a button based on whether the book exists on the index page (FilterIndexForm.js) or not
 

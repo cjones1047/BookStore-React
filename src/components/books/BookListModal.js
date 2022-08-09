@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import BookForm from '../shared/BookForm';
 
@@ -48,6 +48,7 @@ const BookListModal = (props) => {
                             <Card.Img variant="top" src={book.image} style={{ height: '250px', width: '180px' }} />
                             <Card.Body>
                                 <div style={{ textAlign: 'center', display: 'flex' }}>
+
                                     {user && book.owner && book.owner === user._id ?
                                         <BookForm
                                             user={user}
@@ -67,7 +68,6 @@ const BookListModal = (props) => {
                                             setUpdateTaggedBooks={setUpdateTaggedBooks}
                                         />
                                     :
-
                                         null
                                     }
                                     
@@ -78,6 +78,7 @@ const BookListModal = (props) => {
                                         >
                                             View
                                     </Button>
+
                                 </div>
                             </Card.Body>
                         </Card>
