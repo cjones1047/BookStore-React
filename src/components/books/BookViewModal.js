@@ -1,4 +1,6 @@
 import { Card, Col, Row, Container } from 'react-bootstrap';
+ import CommentList from '../comments/CommentList';
+    
 
 const BookViewModal = (props) => {
     const { 
@@ -23,9 +25,15 @@ const BookViewModal = (props) => {
                     </Col>
                 </div>
             </Row>
+            <Row>
+            {/* <CommentList tehd /> */}
+            </Row> 
+            
             <Row className='justify-content-center'>
                 {bookInViewModal.description}
-            </Row>
+             </Row>
+            
+            
         </Container>
     ) 
     else return (
@@ -44,6 +52,7 @@ const BookViewModal = (props) => {
             </Row>
             <Row className='justify-content-center'>
                 {bookInViewModal.description}
+                
             </Row>
         </Container>
     )
