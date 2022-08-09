@@ -20,9 +20,9 @@ const CommentList = (props) => {
         note: null,
         showEditBox: false
     })
-    const [commentNoteBeingEdited, setCommentNoteBeingEdited] = useState(commentToEdit.note)
+    // const [commentNoteBeingEdited, setCommentNoteBeingEdited] = useState(commentToEdit.note)
 
-    console.log(commentToEdit)
+    // console.log(commentToEdit)
 
     // console.log('Current note input value: ', commentNote)
 
@@ -102,98 +102,101 @@ const CommentList = (props) => {
         })
     }
 
-    const listOfComments = allComments.map((comment,i) => {
-        return (
-            <Toast key={i}>
-              <Toast.Header closeButton={false}>
-                {user && comment.owner && comment.owner === user._id
-                ?
-                    user && comment.owner && comment.owner === user._id && commentToEdit.showEditBox && commentToEdit.id === comment._id
+    let listOfComments
+    if(allComments) {
+        listOfComments = allComments.map((comment,i) => {
+            return (
+                <Toast key={i}>
+                <Toast.Header closeButton={false}>
+                    {user && comment.owner && comment.owner === user._id
                     ?
+                        user && comment.owner && comment.owner === user._id && commentToEdit.showEditBox && commentToEdit.id === comment._id
+                        ?
 
-                        <strong
-                            id={comment._id}
-                            lang={comment.note}
-                            className="me-auto edit-button" 
-                            onClick={editThisComment} 
-                            style={{margin: 0, padding: '0 5px', color: 'red'}}
-                            >
-                                Cancel Editing
-                        </strong>
+                            <strong
+                                id={comment._id}
+                                lang={comment.note}
+                                className="me-auto edit-button" 
+                                onClick={editThisComment} 
+                                style={{margin: 0, padding: '0 5px', color: 'red'}}
+                                >
+                                    Cancel Editing
+                            </strong>
+                        
+                        :
+
+                            <strong
+                                id={comment._id}
+                                lang={comment.note}
+                                className="me-auto edit-button" 
+                                onClick={editThisComment} 
+                                style={{margin: 0, padding: '0 5px'}}
+                                >
+                                    Edit
+                            </strong>
                     
                     :
-
-                        <strong
+                    <strong
                             id={comment._id}
                             lang={comment.note}
                             className="me-auto edit-button" 
                             onClick={editThisComment} 
                             style={{margin: 0, padding: '0 5px'}}
                             >
-                                Edit
+                                &nbsp;
                         </strong>
-                
-                :
-                   <strong
-                        id={comment._id}
-                        lang={comment.note}
-                        className="me-auto edit-button" 
-                        onClick={editThisComment} 
-                        style={{margin: 0, padding: '0 5px'}}
-                        >
-                            &nbsp;
-                    </strong>
-                }
-                
+                    }
+                    
 
-                {user && comment.owner && comment.owner === user._id
-                ?
-                    <Button 
-                        variant="light"
-                        id={comment._id}
-                        onClick={deleteThisComment}
-                        style={{height: 'fit-content', margin: 0, padding: '0 5px', fontFamily: 'Times'}}
-                        >
-                            X
-                    </Button>
-                :
-                    null
-                }
-                
-              </Toast.Header>
-              <Toast.Body style={{color: 'black'}}>
-                {commentToEdit.showEditBox && commentToEdit.id === comment._id
-                ?
-                    <Form onSubmit={handleSubmit}>
-
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control
-                                placeholder="Post a comment"
-                                value={commentToEdit.note}
-                                name="note"
-                                type="text"
-                                onChange={handleChange}
-                                as="textarea"
-                                rows={3}
-                                required
-                            />
-                        </Form.Group>
-                        <Button
-                            type="submit"
-                            variant="success"
-                        >
-                            Confirm Edit
+                    {user && comment.owner && comment.owner === user._id
+                    ?
+                        <Button 
+                            variant="light"
+                            id={comment._id}
+                            onClick={deleteThisComment}
+                            style={{height: 'fit-content', margin: 0, padding: '0 5px', fontFamily: 'Times'}}
+                            >
+                                X
                         </Button>
+                    :
+                        null
+                    }
+                    
+                </Toast.Header>
+                <Toast.Body style={{color: 'black'}}>
+                    {commentToEdit.showEditBox && commentToEdit.id === comment._id
+                    ?
+                        <Form onSubmit={handleSubmit}>
 
-                    </Form>
-                :
-                    comment.note
-                }
-                
-              </Toast.Body>
-            </Toast>
-        )
-    }).reverse()
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                <Form.Control
+                                    placeholder="Post a comment"
+                                    value={commentToEdit.note}
+                                    name="note"
+                                    type="text"
+                                    onChange={handleChange}
+                                    as="textarea"
+                                    rows={3}
+                                    required
+                                />
+                            </Form.Group>
+                            <Button
+                                type="submit"
+                                variant="success"
+                            >
+                                Confirm Edit
+                            </Button>
+
+                        </Form>
+                    :
+                        comment.note
+                    }
+                    
+                </Toast.Body>
+                </Toast>
+            )
+        }).reverse()
+    }
 
     useEffect(() => {
         // console.log('use effect works for CommentList')

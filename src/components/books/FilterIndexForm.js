@@ -58,7 +58,7 @@ const FilterIndexForm = (props) => {
         // console.log('props:\n',props)
         getAllBooks()
             .then(res => {
-                setBooks(res.data.books)
+                setBooks(res.data.books.reverse())
                 return
             })
             .catch(err => {
@@ -145,7 +145,7 @@ const FilterIndexForm = (props) => {
                     id='search-book-field'
                     autoComplete='off'
                     type="search"
-                    placeholder="Any book title here..."
+                    placeholder="Any book title or author here..."
                     className="me-2"
                     aria-label="Search the web"
                     value={searchValue}
@@ -153,7 +153,7 @@ const FilterIndexForm = (props) => {
                     required
                 />
                 <Button type='submit' style={{whiteSpace: 'nowrap'}} variant="outline-secondary">
-                    Search book
+                    Search
                 </Button>
             </Form>
 

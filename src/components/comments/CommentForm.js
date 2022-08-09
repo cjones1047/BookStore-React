@@ -1,4 +1,4 @@
-import { Form, Button, Toast, ToastContainer } from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
 import { useState } from "react"
 
 import { createComment } from "../../api/comments"
@@ -9,7 +9,6 @@ const CommentForm = (props) => {
       user,
       msgAlert,
       bookInViewModal,
-      updatedCommentList,
       setUpdatedCommentList
     } = props
 
@@ -51,31 +50,38 @@ const CommentForm = (props) => {
     }
   
     return (
-      <div style={{marginTop: '30px', marginBottom: '5px'}}>
-          <Form onSubmit={handleSubmit}>
-            
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Control
-                placeholder="Post a comment"
-                value={ commentNote }
-                name="note"
-                type="text"
-                onChange={ handleChange }
-                as="textarea" 
-                rows={3}
-                required 
-                />
-            </Form.Group>
-            <Button
-              type="submit"
-              variant="success"
-              >
-                Post Comment
-            </Button>
+      <>
+        {bookInViewModal.owner
+        ?
+          <div style={{marginTop: '30px', marginBottom: '5px'}}>
+              <Form onSubmit={handleSubmit}>
+                
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                  <Form.Control
+                    placeholder="Write a comment"
+                    value={ commentNote }
+                    name="note"
+                    type="text"
+                    onChange={ handleChange }
+                    as="textarea" 
+                    rows={3}
+                    required 
+                    />
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="success"
+                  >
+                    Post Comment
+                </Button>
 
-          </Form>
+              </Form>
 
-      </div>
+          </div>
+        :
+          null
+        }
+      </>
     )
 }
 
