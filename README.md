@@ -1,5 +1,8 @@
 # LETS TALK ABOUT BOOKS!!
 
+### DEPLOYED ON HEROKU
+https://booktag2.herokuapp.com/
+
 ### PROJECT PROMPT
 A full-stack application utilizing React(front-end) and Express(back-end) for users to start and join conversations about books. 
 
