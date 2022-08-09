@@ -8,6 +8,7 @@ const CrudBook = (props) => {
     const {
         user, 
         show,
+        books,
         booksToView,
         bookToShow,
         showBookViewModal,
@@ -59,6 +60,7 @@ const CrudBook = (props) => {
                         <BookListModal
                             user={user}
                             msgAlert={msgAlert}
+                            booksAlreadyTagged={books}
                             booksToView={booksToView}
                             setUpdateTaggedBooks={setUpdateTaggedBooks}
                             heading="Any of these what you're looking for?"
