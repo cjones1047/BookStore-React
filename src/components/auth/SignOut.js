@@ -32,8 +32,8 @@ const SignOut = (props) => {
 		<>
             <div className='row'>
                 <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                    <h2>Are you sure you want to sign out?</h2>
-                    <small>We hate to see you go...</small><br/>
+                    <h2 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>Are you sure you want to sign out?</h2> <br/>
+                    <h4 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>We hate to see you go...</h4><br/>
                     <ButtonGroup>
                         <Button variant='danger' onClick={onSignOut}>
                             Sign Out

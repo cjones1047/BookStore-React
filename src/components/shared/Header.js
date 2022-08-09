@@ -40,8 +40,10 @@ const unauthenticatedOptions = (
 
 const alwaysOptions = (
 	<>
-		<Nav.Link className="nav-element" href="/">
-			Home
+		<Nav.Link className="nav-element" >
+			<Link to='/' style={linkStyle}>
+				Home
+			</Link>
 		</Nav.Link>
 		<div className='vr' />
 	</>

@@ -137,7 +137,7 @@ const ReasonTagged = (props) => {
                             ?
                                 null
                             :
-                                <h6>{bookInViewModal.reasonTagged}</h6>
+                                <h6>"{bookInViewModal.reasonTagged}"</h6>
                             } 
                             </>
                         :
@@ -148,12 +148,29 @@ const ReasonTagged = (props) => {
                                     ?
                                         null
                                     :
-                                        <h6>Tell everyone why you tagged it here</h6>
+                                        <h6>Tell everyone why you Tagged it here</h6>
                                     }
                                         
                                 </>
                             :
-                                <h6>The one who Tagged it hasn't revealed why yet...</h6>
+                                <>
+                                    {bookToEdit.reasonTagged
+                                    ?
+                                        <h6>"{bookToEdit.reasonTagged}"</h6>
+                                    :
+                                        <>
+                                        {!user
+                                        ?
+                                            <h6>No reason...<br/>Sign up to ask them why they Tagged in the comment section!</h6>
+                                        :
+                                            <h6>No reason...<br/>Ask them why they Tagged in the comment section below!</h6>
+                                        }
+                                            
+                                        </>
+                                        
+                                    }
+                                    
+                                </>
                         }
                             
                         {bookToEdit.showEditBox 
@@ -169,7 +186,6 @@ const ReasonTagged = (props) => {
                                         onChange={handleChange}
                                         as="textarea"
                                         rows={3}
-                                        required
                                     />
                                 </Form.Group>
 
