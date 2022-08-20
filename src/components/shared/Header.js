@@ -1,7 +1,7 @@
 import './Header.css'
 
 import { Link } from 'react-router-dom'
-import React, { Fragment } from 'react'
+import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
@@ -12,40 +12,45 @@ const linkStyle = {
 
 const authenticatedOptions = (
 	<>
-		<Nav.Link className="nav-element" >
+		<Nav.Item className="nav-element d-flex align-items-center" href="change-password">
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>
-		</Nav.Link>
-		<div className='vr' />
-		<Nav.Link className="nav-element" >
+		</Nav.Item>
+		<div className='vr' style={{height:'2em'}}/>
+		<Nav.Item className="nav-element d-flex align-items-center" >
 			<Link to='sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
-		</Nav.Link>
+		</Nav.Item>
 	</>
 )
 
 const unauthenticatedOptions = (
 	<>
-        <Nav.Link className="nav-element" href="sign-up">
-		    Sign Up
-        </Nav.Link>
-		<div className='vr' />
-        <Nav.Link className="nav-element" href="sign-in">
-		    Sign In
-        </Nav.Link>
+        <Nav.Item className="nav-element d-flex align-items-center">
+			<Link to='sign-up' style={linkStyle}>
+				Sign Up
+			</Link>
+        </Nav.Item>
+		<div className='vr' style={{height:'2em'}}/>
+        <Nav.Item className="nav-element d-flex align-items-center">
+			<Link to='sign-in' style={linkStyle}>
+				Sign In
+			</Link>
+        </Nav.Item>
 	</>
 )
 
 const alwaysOptions = (
 	<>
-		<Nav.Link className="nav-element" >
+		<div className='vr' style={{height:'1em', opacity:'0'}}/>
+		<Nav.Item className="nav-element d-flex align-items-center" >
 			<Link to='/' style={linkStyle}>
 				Home
 			</Link>
-		</Nav.Link>
-		<div className='vr' />
+		</Nav.Item>
+		<div className='vr' style={{height:'2em'}}/>
 	</>
 )
 
@@ -61,9 +66,12 @@ const Header = ({ user }) => (
 				{user ? authenticatedOptions : unauthenticatedOptions}
 			</Nav>
 		</Navbar.Collapse>
-		<Navbar.Collapse className='justify-content-end' style={{width: '0', margin: '15px', whiteSpace: 'nowrap'}}>
+		<Navbar.Collapse className='justify-content-end' style={{width: '0', margin: '0 15px', whiteSpace: 'nowrap'}}>
 			{user && (
-				<span className='navbar-text mr-2'>Welcome {user.email}</span>
+				<>
+					<div className='vr' style={{height:'1em', opacity:'0'}}/>
+					<div className='navbar-text mr-2'>Welcome {user.email}</div>
+				</>
 			)}
 		</Navbar.Collapse>
 	</Navbar>
