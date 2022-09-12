@@ -1,7 +1,7 @@
 let apiUrl
 const apiUrls = {
     // YOU MUST CHANGE PRODUCTION URL WHEN DEPLOYING
-	production: 'https://booktag.herokuapp.com',
+	production: 'https://booktag-api.fly.dev',
 	development: 'http://localhost:8000',
 }
 
